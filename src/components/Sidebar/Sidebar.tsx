@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2 } from 'lucide-react';
+import { Building2, LayoutGrid } from 'lucide-react';
 import type { SidebarProps } from './types';
 import { getAccentClasses } from './accentColors';
-import SidebarHeader from './SidebarHeader';
 import SidebarNav from './SidebarNav';
 import SidebarFooter from './SidebarFooter';
 import AppLauncherFlyout from '../AppBar/AppLauncherFlyout';
 
 const Sidebar: React.FC<SidebarProps> = ({
   appName,
-  appIcon,
+  appIcon: AppIcon,
   appId,
   accentColor,
   navItems,
@@ -23,9 +22,11 @@ const Sidebar: React.FC<SidebarProps> = ({
   onLogout,
   permissionCheck,
 }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const [launcherOpen, setLauncherOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
+  const expanded = hovered || launcherOpen;
   const accent = getAccentClasses(accentColor);
 
   const hasPerm = (perm: string | null) => {
@@ -40,20 +41,39 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <motion.aside
-      animate={{ width: collapsed ? 68 : 232 }}
-      transition={{ duration: 0.25, ease: 'easeInOut' }}
-      className="relative flex flex-col h-full bg-gray-950 text-white overflow-hidden shrink-0 border-r border-gray-800"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => {
+        setHovered(false);
+        setUserMenuOpen(false);
+      }}
+      animate={{ width: expanded ? 232 : 56 }}
+      transition={{ duration: 0.2, ease: 'easeInOut' }}
+      className="relative flex flex-col h-full bg-gray-950 text-white shrink-0 border-r border-gray-800 overflow-hidden"
     >
-      <SidebarHeader
-        appName={appName}
-        appIcon={appIcon}
-        collapsed={collapsed}
-        onToggle={() => setCollapsed((c) => !c)}
-        accent={accent}
-      />
+      {/* App launcher trigger + app name */}
+      <div className={`flex items-center gap-3 px-2 py-3 ${!expanded ? 'justify-center' : ''}`}>
+        <button
+          onClick={() => setLauncherOpen((o) => !o)}
+          className={`flex items-center justify-center w-10 h-10 rounded-xl transition-all shrink-0 ${
+            launcherOpen
+              ? `${accent.iconChip} text-white shadow-lg ${accent.launcherShadow}`
+              : `${accent.launcherBg} ${accent.activeText} ${accent.launcherBgHover}`
+          }`}
+        >
+          {launcherOpen ? <LayoutGrid size={20} /> : <AppIcon size={20} />}
+        </button>
+        {expanded && (
+          <span className="text-xs font-bold text-white truncate font-montserrat">
+            {appName}
+          </span>
+        )}
+      </div>
 
-      {!collapsed && selectedBiz && (
-        <div className="mx-3 mt-3 mb-1 px-3 py-2 bg-gray-800/80 rounded-lg border border-gray-700/50">
+      <div className="mx-3 h-px bg-gray-800" />
+
+      {/* Business selector */}
+      {expanded && selectedBiz && (
+        <div className="mx-2 mt-2 mb-1 px-3 py-2 bg-gray-800/80 rounded-lg border border-gray-700/50">
           <div className="flex items-center gap-2">
             <Building2 size={13} className="text-gray-400 shrink-0" />
             <span className="text-xs text-gray-300 font-medium truncate">
@@ -76,8 +96,8 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       )}
 
-      {collapsed && selectedBiz && (
-        <div className="px-3 py-2 border-b border-gray-800 flex justify-center">
+      {!expanded && selectedBiz && (
+        <div className="px-2 py-2 flex justify-center">
           <Building2
             size={14}
             className="text-gray-500"
@@ -86,13 +106,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       )}
 
-      <SidebarNav items={navItems} collapsed={collapsed} hasPerm={hasPerm} accent={accent} />
+      <SidebarNav items={navItems} expanded={expanded} hasPerm={hasPerm} accent={accent} />
 
       <SidebarFooter
-        collapsed={collapsed}
+        expanded={expanded}
         user={user}
-        onLauncherToggle={() => setLauncherOpen((o) => !o)}
-        launcherOpen={launcherOpen}
+        userMenuOpen={userMenuOpen}
+        onUserMenuToggle={() => setUserMenuOpen((o) => !o)}
         onLogout={onLogout}
         accent={accent}
       />
