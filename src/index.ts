@@ -11,10 +11,16 @@ export { default as PageHeader } from './components/PageHeader';
 export { default as EmptyState } from './components/EmptyState';
 export { default as LoadingSkeleton } from './components/LoadingSkeleton';
 
+// AppBar (hybrid layout)
+export { default as AppBar } from './components/AppBar/AppBar';
+export { default as IconRail } from './components/AppBar/IconRail';
+export { default as TopBar } from './components/AppBar/TopBar';
+export { default as AppLauncherFlyout } from './components/AppBar/AppLauncherFlyout';
+
 // Sidebar nav helpers
 export { leaf, group, section } from './components/Sidebar/types';
 
-// Types
+// Types — Sidebar
 export type {
   NavLeaf,
   NavGroup,
@@ -24,6 +30,9 @@ export type {
   Business,
   SidebarProps,
 } from './components/Sidebar/types';
+
+// Types — AppBar
+export type { AppDefinition, AppBarProps } from './components/AppBar/types';
 
 export type { ButtonProps } from './components/Button';
 export type { CardProps } from './components/Card';
