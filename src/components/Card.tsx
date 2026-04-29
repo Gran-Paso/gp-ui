@@ -6,9 +6,9 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const paddingClasses = {
   none: '',
-  sm: 'p-4',
-  md: 'p-6',
-  lg: 'p-8',
+  sm:   'p-4',
+  md:   'p-5',
+  lg:   'p-6',
 } as const;
 
 const Card: React.FC<CardProps> = ({
@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({
   ...props
 }) => (
   <div
-    className={`bg-white rounded-xl border border-gray-200 shadow-sm ${paddingClasses[padding]} ${className}`}
+    className={`bg-white rounded-2xl border border-gray-100 shadow-sm ${paddingClasses[padding]} ${className}`}
     {...props}
   >
     {children}

@@ -8,6 +8,8 @@ export { default as Navbar } from './components/Navbar';
 export { default as GpLogo } from './assets/GpLogo';
 export { default as Button } from './components/Button';
 export { default as Card } from './components/Card';
+export { default as IconChip } from './components/IconChip';
+export { default as StatCard } from './components/StatCard';
 export { default as Table } from './components/Table';
 export { default as PageHeader } from './components/PageHeader';
 export { default as EmptyState } from './components/EmptyState';
@@ -46,6 +48,8 @@ export type { AppDefinition, AppBarProps } from './components/AppBar/types';
 
 export type { ButtonProps } from './components/Button';
 export type { CardProps } from './components/Card';
+export type { IconChipProps } from './components/IconChip';
+export type { StatCardProps } from './components/StatCard';
 export type { Column, TableProps } from './components/Table';
 export type { PageHeaderProps } from './components/PageHeader';
 export type { EmptyStateProps } from './components/EmptyState';
