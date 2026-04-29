@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, LayoutGrid } from 'lucide-react';
+import { LayoutGrid } from 'lucide-react';
 import type { SidebarProps } from './types';
 import { getAccentClasses } from './accentColors';
+import GpLogo from '../../assets/GpLogo';
 import SidebarNav from './SidebarNav';
 import SidebarFooter from './SidebarFooter';
 import AppLauncherFlyout from '../AppBar/AppLauncherFlyout';
+
+const sidebarTransition = { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] as const };
 
 const Sidebar: React.FC<SidebarProps> = ({
   appName,
@@ -14,9 +17,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   accentColor,
   navItems,
   user,
-  availableBusinesses,
-  selectedBusinessId,
-  onSelectBusiness,
   apps,
   onAppSelect,
   onLogout,
@@ -35,10 +35,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     return permissionCheck(perm);
   };
 
-  const selectedBiz = availableBusinesses.find(
-    (b) => b.businessId === selectedBusinessId,
-  );
-
   return (
     <motion.aside
       onMouseEnter={() => setHovered(true)}
@@ -47,64 +43,70 @@ const Sidebar: React.FC<SidebarProps> = ({
         setUserMenuOpen(false);
       }}
       animate={{ width: expanded ? 232 : 56 }}
-      transition={{ duration: 0.2, ease: 'easeInOut' }}
-      className="relative flex flex-col h-full bg-gray-950 text-white shrink-0 border-r border-gray-800 overflow-hidden"
+      transition={sidebarTransition}
+      className="relative flex flex-col h-full bg-white shrink-0 border-r border-gray-100 overflow-hidden"
     >
-      {/* App launcher trigger + app name */}
-      <div className={`flex items-center gap-3 px-2 py-3 ${!expanded ? 'justify-center' : ''}`}>
-        <button
-          onClick={() => setLauncherOpen((o) => !o)}
-          className={`flex items-center justify-center w-10 h-10 rounded-xl transition-all shrink-0 ${
-            launcherOpen
-              ? `${accent.iconChip} text-white shadow-lg ${accent.launcherShadow}`
-              : `${accent.launcherBg} ${accent.activeText} ${accent.launcherBgHover}`
-          }`}
-        >
-          {launcherOpen ? <LayoutGrid size={20} /> : <AppIcon size={20} />}
-        </button>
+      {/* Logo area — aligns with navbar height (h-14 = 56px) */}
+      <div
+        className={`flex items-center h-14 shrink-0 ${
+          expanded ? 'gap-3 px-4' : 'justify-center px-0'
+        }`}
+      >
+        {/* GP Logo mark */}
+        <div className={`flex items-center justify-center shrink-0 ${accent.navIconActive}`}>
+          <GpLogo size={26} />
+        </div>
+
         {expanded && (
-          <span className="text-xs font-bold text-white truncate font-montserrat">
-            {appName}
-          </span>
+          <AnimatePresence>
+            <motion.div
+              key="appname"
+              initial={{ opacity: 0, x: -6 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex flex-col min-w-0"
+            >
+              <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400 leading-none">
+                Gran Paso
+              </span>
+              <span className="text-[14px] font-semibold text-gray-800 truncate leading-tight font-montserrat mt-0.5">
+                {appName}
+              </span>
+            </motion.div>
+          </AnimatePresence>
         )}
       </div>
 
-      <div className="mx-3 h-px bg-gray-800" />
+      <div className="mx-3 h-px bg-gray-100 shrink-0" />
 
-      {/* Business selector */}
-      {expanded && selectedBiz && (
-        <div className="mx-2 mt-2 mb-1 px-3 py-2 bg-gray-800/80 rounded-lg border border-gray-700/50">
-          <div className="flex items-center gap-2">
-            <Building2 size={13} className="text-gray-400 shrink-0" />
-            <span className="text-xs text-gray-300 font-medium truncate">
-              {selectedBiz.businessName}
-            </span>
-          </div>
-          {availableBusinesses.length > 1 && (
-            <select
-              value={selectedBusinessId ?? ''}
-              onChange={(e) => onSelectBusiness(parseInt(e.target.value))}
-              className={`mt-1.5 w-full text-xs bg-gray-900 text-gray-200 border border-gray-600 rounded-md px-2 py-1 focus:outline-none focus:ring-1 ${accent.focusRing}`}
-            >
-              {availableBusinesses.map((b) => (
-                <option key={b.businessId} value={b.businessId}>
-                  {b.businessName}
-                </option>
-              ))}
-            </select>
+      {/* App launcher trigger */}
+      <div className={`flex px-2 pt-3 pb-1 ${!expanded ? 'justify-center' : ''}`}>
+        <button
+          onClick={() => setLauncherOpen((o) => !o)}
+          title={expanded ? undefined : 'Lanzador de apps'}
+          className={`flex items-center gap-3 rounded-xl transition-all duration-150 ${
+            expanded
+              ? 'w-full px-3 py-2'
+              : 'w-10 h-10 justify-center'
+          } ${
+            launcherOpen
+              ? `${accent.activeBg} ${accent.activeText}`
+              : `${accent.hoverBg} text-gray-500 hover:text-gray-700`
+          }`}
+        >
+          {launcherOpen ? (
+            <LayoutGrid size={18} className={`shrink-0 ${launcherOpen ? accent.navIconActive : accent.navIcon}`} />
+          ) : (
+            <AppIcon size={18} className={`shrink-0 ${accent.navIcon}`} />
           )}
-        </div>
-      )}
-
-      {!expanded && selectedBiz && (
-        <div className="px-2 py-2 flex justify-center">
-          <Building2
-            size={14}
-            className="text-gray-500"
-            aria-label={selectedBiz.businessName}
-          />
-        </div>
-      )}
+          {expanded && (
+            <span className="text-[13px] truncate">
+              {launcherOpen ? 'Apps' : appName}
+            </span>
+          )}
+        </button>
+      </div>
 
       <SidebarNav items={navItems} expanded={expanded} hasPerm={hasPerm} accent={accent} />
 

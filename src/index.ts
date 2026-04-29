@@ -4,6 +4,8 @@ import './theme/index.css';
 // Components
 export { default as Layout } from './components/Layout';
 export { default as Sidebar } from './components/Sidebar/Sidebar';
+export { default as Navbar } from './components/Navbar';
+export { default as GpLogo } from './assets/GpLogo';
 export { default as Button } from './components/Button';
 export { default as Card } from './components/Card';
 export { default as Table } from './components/Table';
@@ -23,7 +25,7 @@ export { leaf, group, section } from './components/Sidebar/types';
 // Sidebar accent color utility
 export { getAccentClasses } from './components/Sidebar/accentColors';
 
-// Types — Sidebar
+// Types — Sidebar + Navbar
 export type {
   AccentColor,
   NavLeaf,
@@ -33,6 +35,7 @@ export type {
   User,
   Business,
   SidebarProps,
+  NavbarProps,
 } from './components/Sidebar/types';
 
 // Types — Accent
