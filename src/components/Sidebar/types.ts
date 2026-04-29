@@ -1,4 +1,9 @@
 import type React from 'react';
+import type { AccentColor } from './accentColors';
+import type { AppDefinition } from '../AppBar/types';
+
+export type { AccentColor } from './accentColors';
+export type { AppDefinition } from '../AppBar/types';
 
 export interface NavLeaf {
   kind: 'leaf';
@@ -42,13 +47,16 @@ export interface Business {
 export interface SidebarProps {
   appName: string;
   appIcon: React.ElementType;
+  appId?: string;
+  accentColor?: AccentColor;
   navItems: NavItem[];
   user: User | null;
   availableBusinesses: Business[];
   selectedBusinessId: number | null;
   onSelectBusiness: (id: number) => void;
-  onChangeApp: () => void;
   onLogout: () => void;
+  apps?: AppDefinition[];
+  onAppSelect?: (app: AppDefinition) => void;
   /** Return true if the user has the given permission. Items with perm=null are always shown. */
   permissionCheck?: (perm: string) => boolean;
 }

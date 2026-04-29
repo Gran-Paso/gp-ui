@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Building2 } from 'lucide-react';
 import type { SidebarProps } from './types';
+import { getAccentClasses } from './accentColors';
 import SidebarHeader from './SidebarHeader';
 import SidebarNav from './SidebarNav';
 import SidebarFooter from './SidebarFooter';
+import AppLauncherFlyout from '../AppBar/AppLauncherFlyout';
 
 const Sidebar: React.FC<SidebarProps> = ({
   appName,
   appIcon,
+  appId,
+  accentColor,
   navItems,
   user,
   availableBusinesses,
   selectedBusinessId,
   onSelectBusiness,
-  onChangeApp,
+  apps,
+  onAppSelect,
   onLogout,
   permissionCheck,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [launcherOpen, setLauncherOpen] = useState(false);
+
+  const accent = getAccentClasses(accentColor);
 
   const hasPerm = (perm: string | null) => {
     if (perm === null) return true;
@@ -41,9 +49,9 @@ const Sidebar: React.FC<SidebarProps> = ({
         appIcon={appIcon}
         collapsed={collapsed}
         onToggle={() => setCollapsed((c) => !c)}
+        accent={accent}
       />
 
-      {/* Business selector */}
       {!collapsed && selectedBiz && (
         <div className="mx-3 mt-3 mb-1 px-3 py-2 bg-gray-800/80 rounded-lg border border-gray-700/50">
           <div className="flex items-center gap-2">
@@ -56,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <select
               value={selectedBusinessId ?? ''}
               onChange={(e) => onSelectBusiness(parseInt(e.target.value))}
-              className="mt-1.5 w-full text-xs bg-gray-900 text-gray-200 border border-gray-600 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-green-500"
+              className={`mt-1.5 w-full text-xs bg-gray-900 text-gray-200 border border-gray-600 rounded-md px-2 py-1 focus:outline-none focus:ring-1 ${accent.focusRing}`}
             >
               {availableBusinesses.map((b) => (
                 <option key={b.businessId} value={b.businessId}>
@@ -78,14 +86,30 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       )}
 
-      <SidebarNav items={navItems} collapsed={collapsed} hasPerm={hasPerm} />
+      <SidebarNav items={navItems} collapsed={collapsed} hasPerm={hasPerm} accent={accent} />
 
       <SidebarFooter
         collapsed={collapsed}
         user={user}
-        onChangeApp={onChangeApp}
+        onLauncherToggle={() => setLauncherOpen((o) => !o)}
+        launcherOpen={launcherOpen}
         onLogout={onLogout}
+        accent={accent}
       />
+
+      <AnimatePresence>
+        {launcherOpen && apps && appId && onAppSelect && (
+          <AppLauncherFlyout
+            apps={apps}
+            currentAppId={appId}
+            onAppSelect={(app) => {
+              setLauncherOpen(false);
+              onAppSelect(app);
+            }}
+            onClose={() => setLauncherOpen(false)}
+          />
+        )}
+      </AnimatePresence>
     </motion.aside>
   );
 };

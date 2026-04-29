@@ -1,12 +1,14 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import type { AccentClasses } from './accentColors';
 
 interface SidebarHeaderProps {
   appName: string;
   appIcon: React.ElementType;
   collapsed: boolean;
   onToggle: () => void;
+  accent: AccentClasses;
 }
 
 const SidebarHeader: React.FC<SidebarHeaderProps> = ({
@@ -14,6 +16,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   appIcon: AppIcon,
   collapsed,
   onToggle,
+  accent,
 }) => (
   <div className="flex items-center justify-between px-4 py-4 border-b border-gray-800">
     <AnimatePresence>
@@ -24,7 +27,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           exit={{ opacity: 0 }}
           className="flex items-center gap-2 min-w-0"
         >
-          <div className="w-7 h-7 rounded-lg bg-green-600 flex items-center justify-center shrink-0">
+          <div className={`w-7 h-7 rounded-lg ${accent.iconChip} flex items-center justify-center shrink-0`}>
             <AppIcon size={14} className="text-white" />
           </div>
           <span className="font-montserrat font-bold text-sm whitespace-nowrap text-white truncate">
@@ -34,7 +37,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({
       )}
     </AnimatePresence>
     {collapsed && (
-      <div className="mx-auto w-7 h-7 rounded-lg bg-green-600 flex items-center justify-center shrink-0">
+      <div className={`mx-auto w-7 h-7 rounded-lg ${accent.iconChip} flex items-center justify-center shrink-0`}>
         <AppIcon size={14} className="text-white" />
       </div>
     )}

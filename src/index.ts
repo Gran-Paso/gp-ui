@@ -20,8 +20,12 @@ export { default as AppLauncherFlyout } from './components/AppBar/AppLauncherFly
 // Sidebar nav helpers
 export { leaf, group, section } from './components/Sidebar/types';
 
+// Sidebar accent color utility
+export { getAccentClasses } from './components/Sidebar/accentColors';
+
 // Types — Sidebar
 export type {
+  AccentColor,
   NavLeaf,
   NavGroup,
   NavSection,
@@ -30,6 +34,9 @@ export type {
   Business,
   SidebarProps,
 } from './components/Sidebar/types';
+
+// Types — Accent
+export type { AccentClasses } from './components/Sidebar/accentColors';
 
 // Types — AppBar
 export type { AppDefinition, AppBarProps } from './components/AppBar/types';

@@ -3,14 +3,16 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import type { NavItem, NavLeaf, NavGroup, NavSection } from './types';
+import type { AccentClasses } from './accentColors';
 
 interface SidebarNavProps {
   items: NavItem[];
   collapsed: boolean;
   hasPerm: (perm: string | null) => boolean;
+  accent: AccentClasses;
 }
 
-const SidebarNav: React.FC<SidebarNavProps> = ({ items, collapsed, hasPerm }) => {
+const SidebarNav: React.FC<SidebarNavProps> = ({ items, collapsed, hasPerm, accent }) => {
   const location = useLocation();
 
   const allGroups = items.flatMap((n) =>
@@ -70,7 +72,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ items, collapsed, hasPerm }) =>
             indent ? 'px-3 py-2 ml-2' : 'px-3 py-2.5'
           } ${
             isActive
-              ? 'bg-green-500/20 text-white border border-green-500/30'
+              ? `${accent.activeBg} text-white border ${accent.activeBorder}`
               : 'text-gray-400 hover:bg-white/5 hover:text-white border border-transparent'
           }`
         }
@@ -108,7 +110,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ items, collapsed, hasPerm }) =>
           onClick={() => !collapsed && toggleGroup(item.id)}
           className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all text-sm font-medium border ${
             anyChildActive
-              ? 'bg-green-500/20 text-white border-green-500/30'
+              ? `${accent.activeBg} text-white ${accent.activeBorder}`
               : 'text-gray-400 hover:bg-white/5 hover:text-white border-transparent'
           }`}
         >
