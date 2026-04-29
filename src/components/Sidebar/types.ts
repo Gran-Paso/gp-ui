@@ -47,6 +47,8 @@ export interface Business {
 export interface SidebarProps {
   appName: string;
   appIcon: React.ElementType;
+  /** URL of logo image — replaces the default GpLogo SVG */
+  logoSrc?: string;
   appId?: string;
   accentColor?: AccentColor;
   navItems: NavItem[];

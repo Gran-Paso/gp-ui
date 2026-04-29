@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutGrid } from 'lucide-react';
 import type { SidebarProps } from './types';
 import { getAccentClasses } from './accentColors';
 import GpLogo from '../../assets/GpLogo';
@@ -12,7 +11,8 @@ const sidebarTransition = { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] as const }
 
 const Sidebar: React.FC<SidebarProps> = ({
   appName,
-  appIcon: AppIcon,
+  appIcon: _AppIcon,
+  logoSrc,
   appId,
   accentColor,
   navItems,
@@ -35,6 +35,8 @@ const Sidebar: React.FC<SidebarProps> = ({
     return permissionCheck(perm);
   };
 
+  const canLaunch = !!(apps && appId && onAppSelect);
+
   return (
     <motion.aside
       onMouseEnter={() => setHovered(true)}
@@ -46,15 +48,27 @@ const Sidebar: React.FC<SidebarProps> = ({
       transition={sidebarTransition}
       className="relative flex flex-col h-full bg-white shrink-0 border-r border-gray-100 overflow-hidden"
     >
-      {/* Logo area — aligns with navbar height (h-14 = 56px) */}
-      <div
-        className={`flex items-center h-14 shrink-0 ${
+      {/* ── Logo zone — unified launcher trigger ── */}
+      <button
+        onClick={() => canLaunch && setLauncherOpen((o) => !o)}
+        disabled={!canLaunch}
+        className={`flex items-center h-14 shrink-0 w-full transition-all duration-150 select-none ${
           expanded ? 'gap-3 px-4' : 'justify-center px-0'
+        } ${
+          canLaunch
+            ? launcherOpen
+              ? `${accent.activeBg}`
+              : `hover:bg-gray-50 active:bg-gray-100`
+            : 'cursor-default'
         }`}
       >
-        {/* GP Logo mark */}
-        <div className={`flex items-center justify-center shrink-0 ${accent.navIconActive}`}>
-          <GpLogo size={26} />
+        {/* Logo image or SVG fallback */}
+        <div className={`flex items-center justify-center shrink-0 ${!logoSrc ? accent.navIconActive : ''}`}>
+          {logoSrc ? (
+            <img src={logoSrc} alt="Gran Paso" className="w-7 h-7 object-contain" />
+          ) : (
+            <GpLogo size={26} />
+          )}
         </div>
 
         {expanded && (
@@ -65,48 +79,22 @@ const Sidebar: React.FC<SidebarProps> = ({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className="flex flex-col min-w-0"
+              className="flex flex-col min-w-0 text-left"
             >
-              <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400 leading-none">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 leading-none">
                 Gran Paso
               </span>
-              <span className="text-[14px] font-semibold text-gray-800 truncate leading-tight font-montserrat mt-0.5">
+              <span className={`text-[14px] font-semibold truncate leading-tight font-montserrat mt-0.5 ${
+                launcherOpen ? accent.navIconActive : 'text-gray-800'
+              }`}>
                 {appName}
               </span>
             </motion.div>
           </AnimatePresence>
         )}
-      </div>
+      </button>
 
       <div className="mx-3 h-px bg-gray-100 shrink-0" />
-
-      {/* App launcher trigger */}
-      <div className={`flex px-2 pt-3 pb-1 ${!expanded ? 'justify-center' : ''}`}>
-        <button
-          onClick={() => setLauncherOpen((o) => !o)}
-          title={expanded ? undefined : 'Lanzador de apps'}
-          className={`flex items-center gap-3 rounded-xl transition-all duration-150 ${
-            expanded
-              ? 'w-full px-3 py-2'
-              : 'w-10 h-10 justify-center'
-          } ${
-            launcherOpen
-              ? `${accent.activeBg} ${accent.activeText}`
-              : `${accent.hoverBg} text-gray-500 hover:text-gray-700`
-          }`}
-        >
-          {launcherOpen ? (
-            <LayoutGrid size={18} className={`shrink-0 ${launcherOpen ? accent.navIconActive : accent.navIcon}`} />
-          ) : (
-            <AppIcon size={18} className={`shrink-0 ${accent.navIcon}`} />
-          )}
-          {expanded && (
-            <span className="text-[13px] truncate">
-              {launcherOpen ? 'Apps' : appName}
-            </span>
-          )}
-        </button>
-      </div>
 
       <SidebarNav items={navItems} expanded={expanded} hasPerm={hasPerm} accent={accent} />
 
@@ -120,13 +108,13 @@ const Sidebar: React.FC<SidebarProps> = ({
       />
 
       <AnimatePresence>
-        {launcherOpen && apps && appId && onAppSelect && (
+        {launcherOpen && canLaunch && (
           <AppLauncherFlyout
-            apps={apps}
-            currentAppId={appId}
+            apps={apps!}
+            currentAppId={appId!}
             onAppSelect={(app) => {
               setLauncherOpen(false);
-              onAppSelect(app);
+              onAppSelect!(app);
             }}
             onClose={() => setLauncherOpen(false)}
           />
