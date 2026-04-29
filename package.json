@@ -1,5 +1,5 @@
 {
-  "name": "@gp/ui",
+  "name": "@gran-paso/ui",
   "version": "0.1.1",
   "description": "Gran Paso ERP shared component library and design system",
   "type": "module",

@@ -9,7 +9,7 @@ Shared component library and design system for Gran Paso ERP.
 Create or update `.npmrc` in your project root (or `~/.npmrc` for global):
 
 ```
-@gp:registry=https://npm.pkg.github.com
+@gran-paso:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GPR_TOKEN}
 ```
 
@@ -18,7 +18,7 @@ Set `GPR_TOKEN` as an environment variable with a GitHub personal access token t
 ### 2. Install the package
 
 ```bash
-npm install @gp/ui
+npm install @gran-paso/ui
 ```
 
 ### 3. Configure Tailwind
@@ -26,14 +26,14 @@ npm install @gp/ui
 Update your app's `tailwind.config.js`:
 
 ```js
-import gpPreset from '@gp/ui/theme/tailwind-preset';
+import gpPreset from '@gran-paso/ui/theme/tailwind-preset';
 
 export default {
   presets: [gpPreset],
   content: [
     './index.html',
     './src/**/*.{ts,tsx}',
-    './node_modules/@gp/ui/dist/**/*.{js,mjs}',
+    './node_modules/@gran-paso/ui/dist/**/*.{js,mjs}',
   ],
 };
 ```
@@ -43,7 +43,7 @@ export default {
 In your `main.tsx` or entry file:
 
 ```tsx
-import '@gp/ui/style.css';
+import '@gran-paso/ui/style.css';
 ```
 
 ## Usage
@@ -51,8 +51,8 @@ import '@gp/ui/style.css';
 ### Layout + Sidebar
 
 ```tsx
-import { Layout, Sidebar, leaf, section, group } from '@gp/ui';
-import type { NavItem } from '@gp/ui';
+import { Layout, Sidebar, leaf, section, group } from '@gran-paso/ui';
+import type { NavItem } from '@gran-paso/ui';
 import { LayoutDashboard, Users, Settings } from 'lucide-react';
 import { Outlet } from 'react-router-dom';
 
@@ -114,8 +114,8 @@ function App() {
 ### Components
 
 ```tsx
-import { Button, Card, PageHeader, EmptyState, LoadingSkeleton, Table } from '@gp/ui';
-import type { Column } from '@gp/ui';
+import { Button, Card, PageHeader, EmptyState, LoadingSkeleton, Table } from '@gran-paso/ui';
+import type { Column } from '@gran-paso/ui';
 import { Inbox } from 'lucide-react';
 
 // Button variants
