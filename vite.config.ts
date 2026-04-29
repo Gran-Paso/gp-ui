@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
-import { resolve } from 'path';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
@@ -18,6 +21,7 @@ export default defineConfig({
         'theme/tailwind-preset': resolve(__dirname, 'src/theme/tailwind-preset.ts'),
       },
       formats: ['es', 'cjs'],
+      cssFileName: 'style',
     },
     rollupOptions: {
       external: [
