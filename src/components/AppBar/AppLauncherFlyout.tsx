@@ -48,7 +48,7 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
       animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={{ opacity: 0, x: -12, scale: 0.96 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="absolute top-2 left-16 z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-[320px]"
+      className="fixed top-4 left-16 z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-[320px]"
     >
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-sm font-bold text-gray-900 font-montserrat">
