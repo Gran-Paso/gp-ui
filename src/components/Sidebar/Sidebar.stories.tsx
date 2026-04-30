@@ -43,8 +43,8 @@ const sampleBusinesses = [
 
 const sampleApps: AppDefinition[] = [
   { id: 'gp-services', name: 'GP Services', shortName: 'Services', icon: Wrench, color: 'bg-teal-100', iconColor: 'text-teal-600', url: '#' },
-  { id: 'gp-inventory', name: 'GP Inventory', shortName: 'Inventory', icon: Package, color: 'bg-emerald-100', iconColor: 'text-emerald-600', url: '#' },
-  { id: 'gp-factory', name: 'GP Factory', shortName: 'Factory', icon: Factory, color: 'bg-slate-100', iconColor: 'text-slate-600', url: '#' },
+  { id: 'gp-inventory', name: 'GP Inventory', shortName: 'Inventory', icon: Package, color: 'bg-green-100', iconColor: 'text-green-600', url: '#' },
+  { id: 'gp-factory', name: 'GP Factory', shortName: 'Factory', icon: Factory, color: 'bg-blue-100', iconColor: 'text-blue-600', url: '#' },
   { id: 'gp-sessions', name: 'GP Sessions', shortName: 'Sessions', icon: CalendarRange, color: 'bg-indigo-100', iconColor: 'text-indigo-600', url: '#' },
 ];
 
