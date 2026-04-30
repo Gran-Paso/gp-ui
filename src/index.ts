@@ -18,6 +18,11 @@ export { default as Table } from './components/Table';
 export { default as PageHeader } from './components/PageHeader';
 export { default as EmptyState } from './components/EmptyState';
 export { default as LoadingSkeleton } from './components/LoadingSkeleton';
+export { default as Modal } from './components/Modal';
+export { default as ProviderPickerPanel } from './components/ProviderPickerPanel';
+export { default as ListingCard } from './components/ListingCard';
+export { default as PageToolbar } from './components/PageToolbar';
+export { default as StockLevelDot } from './components/StockLevelDot';
 
 // AppBar (hybrid layout)
 export { default as AppBar } from './components/AppBar/AppBar';
@@ -62,3 +67,9 @@ export type { Column, TableProps } from './components/Table';
 export type { PageHeaderProps } from './components/PageHeader';
 export type { EmptyStateProps } from './components/EmptyState';
 export type { LoadingSkeletonProps } from './components/LoadingSkeleton';
+export type { ModalProps } from './components/Modal';
+export type { ProviderPickerPanelProps } from './components/ProviderPickerPanel';
+export type { ListingCardProps } from './components/ListingCard';
+export type { PageToolbarProps } from './components/PageToolbar';
+export type { StockLevelDotProps, StockLevelTone, ResolveStockLevelOptions } from './components/StockLevelDot';
+export { resolveStockLevel } from './components/StockLevelDot';

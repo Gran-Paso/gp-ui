@@ -200,3 +200,15 @@ The workflow builds and publishes to GitHub Packages automatically.
 | `leaf()` | `(to, label, icon, perm, href?) => NavLeaf` |
 | `group()` | `(id, label, icon, perm, children) => NavGroup` |
 | `section()` | `(label, items) => NavSection` |
+
+### Cross-app navigation (standard)
+
+Micro-frontends that leave the SPA share these rules:
+
+1. **`href` on `leaf()`** — Pass target base URL built with your auth helpers (same pattern everywhere): attach `token`, serialized `user`, and `businessId` query params so the destination app can hydrate session (see `buildExternalAppUrl` in gp-inventory / gp-factory).
+2. **No `(redirección)` suffix in labels** — Use neutral labels (e.g. `Proveedores`, `Ventas · GP Sales`).
+3. **External affordance in UI** — Sidebar (`SidebarNav`) shows a trailing **ExternalLink** (lucide) for any leaf with `href`. Apps that still use a legacy custom sidebar should mirror that pattern (icon right or corner badge when collapsed).
+4. **Permissions** — Synthetic keys like `nav_providers` map to HR permissions in each app’s `permissionCheck`; external leaves stay gated the same as internal routes.
+5. **Shell** — Prefer `Layout` + `Sidebar` + `Navbar` from this package with `accentColor` per product (e.g. inventory `green`, factory `indigo`) so launcher, footer, and rails stay visually aligned.
+
+Apps consuming `@gran-paso/ui` should align React versions with the library (React 19 recommended). If you stay on React 18 temporarily, use a small JSX **`any` bridge** for `Layout` / `Sidebar` / `Navbar` so `tsc` ignores React 19 `FC` return types from the compiled library (`gp-factory/src/components/gpUiBridge.tsx`). Prefer upgrading the host app to **React 19** long-term.

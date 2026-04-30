@@ -62,12 +62,12 @@ const Sidebar: React.FC<SidebarProps> = ({
             : 'cursor-default'
         }`}
       >
-        {/* Logo image or SVG fallback */}
-        <div className={`flex items-center justify-center shrink-0 ${!logoSrc ? accent.navIconActive : ''}`}>
+        {/* Logo: PNG por defecto (gp-ui) o URL opcional por app */}
+        <div className="flex shrink-0 items-center justify-center">
           {logoSrc ? (
-            <img src={logoSrc} alt="Gran Paso" className="w-7 h-7 object-contain" />
+            <img src={logoSrc} alt="Gran Paso" className="h-7 w-7 object-contain" />
           ) : (
-            <GpLogo size={26} />
+            <GpLogo size={28} className="rounded-md" />
           )}
         </div>
 

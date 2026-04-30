@@ -34,10 +34,10 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="flex items-center justify-between h-14 px-5 bg-white border-b border-gray-100 shrink-0">
-      {/* Left: contextual breadcrumb slot (reserved for page title in the future) */}
-      <div className="flex items-center gap-2 min-w-0">
-        <Store size={14} className="text-gray-300 shrink-0" />
-        <span className="text-[13px] text-gray-400 font-medium truncate">
+      {/* Left: contexto de negocio (el isotipo va solo en el Sidebar) */}
+      <div className="flex min-w-0 items-center gap-2">
+        <Store size={14} className="shrink-0 text-gray-300" />
+        <span className="truncate text-[13px] font-medium text-gray-400">
           {selectedBiz?.businessName ?? '—'}
         </span>
       </div>

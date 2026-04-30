@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutGrid, ChevronDown, LogOut } from 'lucide-react';
+import { LayoutGrid, ChevronDown, LogOut, ExternalLink } from 'lucide-react';
 import type { NavItem, NavLeaf, NavGroup, NavSection, User } from './types';
 
 interface IconRailProps {
@@ -30,11 +30,22 @@ const RailLeaf: React.FC<{
     return (
       <a
         href={item.href}
-        className={`${base} ${sizing} text-gray-500 hover:bg-white/10 hover:text-white`}
+        className={`${base} ${sizing} text-gray-500 hover:bg-white/10 hover:text-white relative`}
       >
         <Icon size={indent ? 16 : 18} className="shrink-0" />
         {expanded && (
-          <span className="text-sm font-medium truncate">{item.label}</span>
+          <>
+            <span className="flex-1 min-w-0 text-sm font-medium truncate">{item.label}</span>
+            <ExternalLink size={14} className="shrink-0 opacity-55" aria-hidden />
+          </>
+        )}
+        {!expanded && (
+          <ExternalLink
+            size={11}
+            strokeWidth={2.25}
+            className="pointer-events-none absolute bottom-1 right-1 opacity-60"
+            aria-hidden
+          />
         )}
       </a>
     );

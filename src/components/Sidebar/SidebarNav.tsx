@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import type { NavItem, NavLeaf, NavGroup, NavSection } from './types';
 import type { AccentClasses } from './accentColors';
 
@@ -31,11 +31,26 @@ const LeafItem: React.FC<{
     return (
       <a
         href={item.href}
-        className={`${base} ${sizing} ${accent.hoverBg} text-gray-500 hover:text-gray-700`}
+        className={`${base} ${sizing} ${accent.hoverBg} text-gray-500 hover:text-gray-700 relative`}
       >
         <Icon size={indent ? 15 : 18} className={`shrink-0 ${accent.navIcon}`} />
         {expanded && (
-          <span className="text-[13px] font-medium truncate">{item.label}</span>
+          <>
+            <span className="flex-1 min-w-0 text-[13px] font-medium truncate">{item.label}</span>
+            <ExternalLink
+              size={14}
+              className="shrink-0 opacity-55 text-gray-400"
+              aria-hidden
+            />
+          </>
+        )}
+        {!expanded && (
+          <ExternalLink
+            size={11}
+            strokeWidth={2.25}
+            className="pointer-events-none absolute bottom-1 right-1 opacity-60 text-gray-400"
+            aria-hidden
+          />
         )}
       </a>
     );
