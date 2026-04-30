@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 
 export interface EmptyStateProps {
   /** Lucide icon element at ~40px, or component type */
@@ -12,11 +12,12 @@ export interface EmptyStateProps {
 const EmptyState: React.FC<EmptyStateProps> = ({ icon, title, description, action }) => {
   let iconNode: React.ReactNode = null;
   if (icon) {
-    if (typeof icon === 'function') {
+    // Lucide (and many wrappers) are ForwardRefExoticComponent → typeof === 'object', not 'function'
+    if (isValidElement(icon)) {
+      iconNode = icon;
+    } else {
       const Icon = icon as React.ElementType;
       iconNode = <Icon size={44} className="text-gray-300" />;
-    } else {
-      iconNode = icon;
     }
   }
 

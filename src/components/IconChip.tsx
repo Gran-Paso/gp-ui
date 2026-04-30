@@ -1,7 +1,7 @@
 import React from 'react';
 
 type ChipColor =
-  | 'teal' | 'emerald' | 'green' | 'blue' | 'indigo' | 'violet' | 'purple'
+  | 'teal' | 'emerald' | 'green' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple'
   | 'pink' | 'rose' | 'orange' | 'amber' | 'yellow' | 'red' | 'slate' | 'gray';
 
 type ChipSize = 'xs' | 'sm' | 'md' | 'lg';
@@ -10,6 +10,7 @@ const bgMap: Record<ChipColor, string> = {
   teal:    'bg-teal-50    text-teal-600',
   emerald: 'bg-emerald-50 text-emerald-600',
   green:   'bg-green-50   text-green-600',
+  sky:     'bg-sky-50     text-sky-600',
   blue:    'bg-blue-50    text-blue-600',
   indigo:  'bg-indigo-50  text-indigo-600',
   violet:  'bg-violet-50  text-violet-600',
