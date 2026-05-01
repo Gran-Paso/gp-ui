@@ -1,6 +1,6 @@
 {
   "name": "@gran-paso/ui",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "Gran Paso ERP shared component library and design system",
   "type": "module",
   "main": "./dist/index.cjs",
