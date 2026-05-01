@@ -74,6 +74,8 @@ export interface NavbarProps {
   availableBusinesses: Business[];
   selectedBusinessId: number | null;
   onSelectBusiness: (id: number) => void;
+  /** Hide store/business strip + selector (e.g. GP Control). */
+  hideBusinessContext?: boolean;
 }
 
 // Helper factories for cleaner nav definitions in consumer apps

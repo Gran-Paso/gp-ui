@@ -1,6 +1,17 @@
 // Theme
 import './theme/index.css';
 
+export { default as GpWikiReferenceRow } from './components/crossApp/GpWikiReferenceRow';
+export { default as GpControlTaskReferenceRow } from './components/crossApp/GpControlTaskReferenceRow';
+export type { GpWikiReferenceRowProps } from './components/crossApp/GpWikiReferenceRow';
+export type { GpControlTaskReferenceRowProps } from './components/crossApp/GpControlTaskReferenceRow';
+export {
+  gpControlTaskTypePresentation,
+  gpControlTaskStatusPresentation,
+  resolveGpControlTaskType,
+  resolveGpControlTaskStatus,
+} from './components/crossApp/gpControlPresentation';
+
 // Components
 export { default as Layout } from './components/Layout';
 export { default as Sidebar } from './components/Sidebar/Sidebar';
@@ -19,6 +30,7 @@ export { default as PageHeader } from './components/PageHeader';
 export { default as EmptyState } from './components/EmptyState';
 export { default as LoadingSkeleton } from './components/LoadingSkeleton';
 export { default as Modal } from './components/Modal';
+export { default as WizardModal } from './components/WizardModal';
 export { default as ProviderPickerPanel } from './components/ProviderPickerPanel';
 export { default as ListingCard } from './components/ListingCard';
 export { default as PageToolbar } from './components/PageToolbar';
@@ -68,8 +80,23 @@ export type { PageHeaderProps } from './components/PageHeader';
 export type { EmptyStateProps } from './components/EmptyState';
 export type { LoadingSkeletonProps } from './components/LoadingSkeleton';
 export type { ModalProps } from './components/Modal';
+export type { WizardModalProps, WizardModalAccent } from './components/WizardModal';
 export type { ProviderPickerPanelProps } from './components/ProviderPickerPanel';
 export type { ListingCardProps } from './components/ListingCard';
 export type { PageToolbarProps } from './components/PageToolbar';
 export type { StockLevelDotProps, StockLevelTone, ResolveStockLevelOptions } from './components/StockLevelDot';
 export { resolveStockLevel } from './components/StockLevelDot';
+
+// Billing / subscription (JWT + shell gate)
+export { default as SubscriptionWall } from './components/billing/SubscriptionWall';
+export { default as SubscriptionPastDueBanner } from './components/billing/SubscriptionPastDueBanner';
+export { default as SubscriptionShellGate } from './components/billing/SubscriptionShellGate';
+export type { SubscriptionWallProps } from './components/billing/SubscriptionWall';
+export type { SubscriptionPastDueBannerProps } from './components/billing/SubscriptionPastDueBanner';
+export type { SubscriptionShellGateProps } from './components/billing/SubscriptionShellGate';
+export {
+  decodeJwtPayload,
+  resolveSubscriptionSnapshot,
+  getSystemRoleFromToken,
+} from './billing/subscriptionFromJwt';
+export type { GpSubscriptionStatus, BillingSubscriptionJwtRow } from './billing/subscriptionFromJwt';

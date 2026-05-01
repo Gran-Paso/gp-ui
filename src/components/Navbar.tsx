@@ -13,6 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({
   availableBusinesses,
   selectedBusinessId,
   onSelectBusiness,
+  hideBusinessContext = false,
 }) => {
   const accent = getAccentClasses(accentColor);
   const [bizOpen, setBizOpen] = useState(false);
@@ -34,18 +35,21 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="flex items-center justify-between h-14 px-5 bg-white border-b border-gray-100 shrink-0">
-      {/* Left: contexto de negocio (el isotipo va solo en el Sidebar) */}
-      <div className="flex min-w-0 items-center gap-2">
-        <Store size={14} className="shrink-0 text-gray-300" />
-        <span className="truncate text-[13px] font-medium text-gray-400">
-          {selectedBiz?.businessName ?? '—'}
-        </span>
-      </div>
+      {!hideBusinessContext ? (
+        <div className="flex min-w-0 items-center gap-2">
+          <Store size={14} className="shrink-0 text-gray-300" />
+          <span className="truncate text-[13px] font-medium text-gray-400">
+            {selectedBiz?.businessName ?? '—'}
+          </span>
+        </div>
+      ) : (
+        <div className="min-w-0 flex-1" aria-hidden />
+      )}
 
       {/* Right: business selector + user */}
       <div className="flex items-center gap-3">
         {/* Business selector */}
-        {availableBusinesses.length > 0 && (
+        {!hideBusinessContext && availableBusinesses.length > 0 && (
           <div className="relative" ref={dropRef}>
             <button
               onClick={() => setBizOpen((o) => !o)}
@@ -94,7 +98,7 @@ const Navbar: React.FC<NavbarProps> = ({
         )}
 
         {/* Divider */}
-        {user && <div className="h-5 w-px bg-gray-100" />}
+        {!hideBusinessContext && user && <div className="h-5 w-px bg-gray-100" />}
 
         {/* User chip */}
         {user && (
