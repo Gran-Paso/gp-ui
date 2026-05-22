@@ -13,6 +13,16 @@ export interface AppDefinition {
   disabledReason?: string;
 }
 
+export interface TopBarProps {
+  appName: string;
+  user: User | null;
+  availableBusinesses: Business[];
+  selectedBusinessId: number | null;
+  onSelectBusiness: (id: number) => void;
+  /** Optional subscription badge rendered near the business selector. */
+  subscriptionBadge?: React.ReactNode;
+}
+
 export interface AppBarProps {
   appName: string;
   appIcon: React.ElementType;
@@ -27,6 +37,8 @@ export interface AppBarProps {
   onLogout: () => void;
   permissionCheck?: (perm: string) => boolean;
   children: React.ReactNode;
+  /** Optional subscription badge forwarded to TopBar. */
+  subscriptionBadge?: React.ReactNode;
 }
 
 export type { NavItem, NavLeaf, NavGroup, NavSection, User, Business } from '../Sidebar/types';

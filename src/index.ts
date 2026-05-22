@@ -91,12 +91,16 @@ export { resolveStockLevel } from './components/StockLevelDot';
 export { default as SubscriptionWall } from './components/billing/SubscriptionWall';
 export { default as SubscriptionPastDueBanner } from './components/billing/SubscriptionPastDueBanner';
 export { default as SubscriptionShellGate } from './components/billing/SubscriptionShellGate';
+export { default as FreePassBadge } from './components/billing/FreePassBadge';
 export type { SubscriptionWallProps } from './components/billing/SubscriptionWall';
 export type { SubscriptionPastDueBannerProps } from './components/billing/SubscriptionPastDueBanner';
 export type { SubscriptionShellGateProps } from './components/billing/SubscriptionShellGate';
+export type { FreePassBadgeProps } from './components/billing/FreePassBadge';
 export {
   decodeJwtPayload,
   resolveSubscriptionSnapshot,
   getSystemRoleFromToken,
 } from './billing/subscriptionFromJwt';
 export type { GpSubscriptionStatus, BillingSubscriptionJwtRow } from './billing/subscriptionFromJwt';
+export { useSubscriptionSnapshot } from './billing/useSubscriptionSnapshot';
+export type { UseSubscriptionSnapshotResult } from './billing/useSubscriptionSnapshot';

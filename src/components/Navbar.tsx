@@ -14,6 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({
   selectedBusinessId,
   onSelectBusiness,
   hideBusinessContext = false,
+  subscriptionBadge,
 }) => {
   const accent = getAccentClasses(accentColor);
   const [bizOpen, setBizOpen] = useState(false);
@@ -95,6 +96,11 @@ const Navbar: React.FC<NavbarProps> = ({
               </div>
             )}
           </div>
+        )}
+
+        {/* Subscription badge */}
+        {subscriptionBadge && (
+          <div className="hidden sm:flex items-center">{subscriptionBadge}</div>
         )}
 
         {/* Divider */}

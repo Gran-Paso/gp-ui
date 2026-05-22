@@ -18,6 +18,7 @@ const AppBar: React.FC<AppBarProps> = ({
   onAppSelect,
   onLogout,
   permissionCheck,
+  subscriptionBadge,
   children,
 }) => {
   const [launcherOpen, setLauncherOpen] = useState(false);
@@ -43,6 +44,7 @@ const AppBar: React.FC<AppBarProps> = ({
           availableBusinesses={availableBusinesses}
           selectedBusinessId={selectedBusinessId}
           onSelectBusiness={onSelectBusiness}
+          subscriptionBadge={subscriptionBadge}
         />
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>

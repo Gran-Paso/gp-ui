@@ -1,14 +1,6 @@
 import React from 'react';
 import { Building2, ChevronDown } from 'lucide-react';
-import type { User, Business } from './types';
-
-interface TopBarProps {
-  appName: string;
-  user: User | null;
-  availableBusinesses: Business[];
-  selectedBusinessId: number | null;
-  onSelectBusiness: (id: number) => void;
-}
+import type { TopBarProps } from './types';
 
 const TopBar: React.FC<TopBarProps> = ({
   appName,
@@ -16,6 +8,7 @@ const TopBar: React.FC<TopBarProps> = ({
   availableBusinesses,
   selectedBusinessId,
   onSelectBusiness,
+  subscriptionBadge,
 }) => {
   const selectedBiz = availableBusinesses.find(
     (b) => b.businessId === selectedBusinessId,
@@ -64,6 +57,11 @@ const TopBar: React.FC<TopBarProps> = ({
               )}
             </div>
           </div>
+        )}
+
+        {/* Subscription badge */}
+        {subscriptionBadge && (
+          <div className="hidden sm:flex items-center">{subscriptionBadge}</div>
         )}
 
         {/* User info */}
