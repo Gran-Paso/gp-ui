@@ -4,9 +4,15 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versión a publicar (opcional, ej: 1.1.0). Deja vacío para usar la del package.json'
+        required: false
+        type: string
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 jobs:
@@ -20,6 +26,15 @@ jobs:
           node-version: 20
           registry-url: https://npm.pkg.github.com
           scope: '@gran-paso'
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version (if provided)
+        if: ${{ inputs.version != '' }}
+        run: npm version ${{ inputs.version }} --no-git-tag-version
 
       - name: Install dependencies
         run: npm ci
