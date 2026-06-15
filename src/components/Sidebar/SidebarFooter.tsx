@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut } from 'lucide-react';
+import { LogOut, Settings } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import type { User } from './types';
 import type { AccentClasses } from './accentColors';
 
@@ -11,6 +12,7 @@ interface SidebarFooterProps {
   onUserMenuToggle: () => void;
   onLogout: () => void;
   accent: AccentClasses;
+  showSettings?: boolean;
 }
 
 const SidebarFooter: React.FC<SidebarFooterProps> = ({
@@ -20,6 +22,7 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({
   onUserMenuToggle,
   onLogout,
   accent,
+  showSettings,
 }) => (
   <div className="mt-auto pt-2 pb-3">
     <div className="mx-3 h-px bg-gray-100 mb-2" />
@@ -66,6 +69,15 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({
               <div className="px-3 py-2 mb-1">
                 <p className="text-[11px] text-gray-400 truncate">{user.email}</p>
               </div>
+            )}
+            {showSettings && (
+              <Link
+                to="/settings"
+                className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-[13px] text-gray-500 hover:bg-gray-100 transition-colors"
+              >
+                <Settings size={14} />
+                Configuración
+              </Link>
             )}
             <button
               onClick={onLogout}

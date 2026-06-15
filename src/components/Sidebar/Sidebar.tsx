@@ -21,6 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onAppSelect,
   onLogout,
   permissionCheck,
+  showSettings,
 }) => {
   const [hovered, setHovered] = useState(false);
   const [launcherOpen, setLauncherOpen] = useState(false);
@@ -105,6 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         onUserMenuToggle={() => setUserMenuOpen((o) => !o)}
         onLogout={onLogout}
         accent={accent}
+        showSettings={showSettings}
       />
 
       <AnimatePresence>

@@ -23,6 +23,7 @@ export { default as IconChip } from './components/IconChip';
 export { default as StatCard } from './components/StatCard';
 export { default as StatusBadge } from './components/StatusBadge';
 export { default as TabBar } from './components/TabBar';
+export { default as SupplyWorkspaceTabs } from './components/SupplyWorkspaceTabs';
 export { default as SearchInput } from './components/SearchInput';
 export { default as Spinner } from './components/Spinner';
 export { default as Table } from './components/Table';
@@ -73,6 +74,7 @@ export type { IconChipProps } from './components/IconChip';
 export type { StatCardProps } from './components/StatCard';
 export type { StatusBadgeProps, StatusKey } from './components/StatusBadge';
 export type { TabBarProps, TabItem } from './components/TabBar';
+export type { SupplyWorkspaceTabsProps, SupplyWorkspaceTab } from './components/SupplyWorkspaceTabs';
 export type { SearchInputProps } from './components/SearchInput';
 export type { SpinnerProps } from './components/Spinner';
 export type { Column, TableProps } from './components/Table';
@@ -104,3 +106,18 @@ export {
 export type { GpSubscriptionStatus, BillingSubscriptionJwtRow } from './billing/subscriptionFromJwt';
 export { useSubscriptionSnapshot } from './billing/useSubscriptionSnapshot';
 export type { UseSubscriptionSnapshotResult } from './billing/useSubscriptionSnapshot';
+
+// Business permission matrix (GP Control role editor)
+export {
+  DEFAULT_PERMISSIONS,
+  PERM_LABELS,
+  ALL_PERMISSION_SECTIONS,
+  APP_KEY_DISPLAY_NAMES,
+  OWNER_ONLY_PERMISSION_KEYS,
+  getPermissionSectionsForBusiness,
+  getAllowedPermissionKeysForBusiness,
+  buildDefaultPermissionsForBusiness,
+  stripPermissionsForBusiness,
+  findDisallowedPermissionKeys,
+} from './permissions/businessPermissions';
+export type { PermissionSectionDef, PermissionSectionId } from './permissions/businessPermissions';

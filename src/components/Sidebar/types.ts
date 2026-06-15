@@ -64,6 +64,8 @@ export interface SidebarProps {
   onAppSelect?: (app: AppDefinition) => void;
   /** Return true if the user has the given permission. Items with perm=null are always shown. */
   permissionCheck?: (perm: string) => boolean;
+  /** Show Settings link in footer (for owner/admin). */
+  showSettings?: boolean;
 }
 
 export interface NavbarProps {
