@@ -37,7 +37,11 @@ jobs:
         run: npm version ${{ inputs.version }} --no-git-tag-version
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          # Rebuild native modules for Linux (fix Rollup platform mismatch)
+          npm install --force @rollup/rollup-linux-x64-gnu || true
+          npm rebuild
 
       - name: Build
         run: npm run build
