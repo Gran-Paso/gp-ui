@@ -58,6 +58,7 @@ export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
   manage_inventory: false,
   view_products: false,
   manage_products: false,
+  view_operational_dashboard: false,
   view_providers: false,
   manage_providers: false,
   view_provider_transactions: false,
@@ -127,6 +128,7 @@ export const PERM_LABELS: Record<string, string> = {
   manage_inventory: 'Gestionar inventario',
   view_products: 'Ver productos',
   manage_products: 'Gestionar productos',
+  view_operational_dashboard: 'Ver dashboard operativo (logístico)',
   view_providers: 'Ver proveedores',
   manage_providers: 'Gestionar proveedores',
   view_provider_transactions: 'Ver transacciones de proveedores',
@@ -225,6 +227,7 @@ export const ALL_PERMISSION_SECTIONS: PermissionSectionDef[] = [
       'manage_inventory',
       'view_products',
       'manage_products',
+      'view_operational_dashboard',
     ],
   },
   {

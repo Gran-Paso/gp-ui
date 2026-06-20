@@ -66,6 +66,10 @@ export interface SidebarProps {
   permissionCheck?: (perm: string) => boolean;
   /** Show Settings link in footer (for owner/admin). */
   showSettings?: boolean;
+  /** Lista de app IDs habilitadas para el negocio actual (desde gp-admin). */
+  businessApps?: string[];
+  /** Rol de sistema del usuario (ej. 'super_admin'). Usado para filtrar GP Admin. */
+  systemRole?: string | null;
 }
 
 export interface NavbarProps {

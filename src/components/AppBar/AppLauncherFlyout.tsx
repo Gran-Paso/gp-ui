@@ -8,6 +8,10 @@ interface AppLauncherFlyoutProps {
   currentAppId: string;
   onAppSelect: (app: AppDefinition) => void;
   onClose: () => void;
+  /** Lista de app IDs habilitadas para el negocio actual (desde gp-admin). */
+  businessApps?: string[];
+  /** Rol de sistema del usuario (ej. 'super_admin'). Usado para filtrar GP Admin. */
+  systemRole?: string | null;
 }
 
 const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
@@ -15,8 +19,34 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
   currentAppId,
   onAppSelect,
   onClose,
+  businessApps,
+  systemRole,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null);
+
+  const effectiveApps = React.useMemo(() => {
+    return apps.map((app) => {
+      // Preserve any explicitly disabled state from the consumer
+      if (app.disabled) return app;
+
+      // GP Admin only for super_admin
+      if (app.id === 'gp-admin') {
+        if (systemRole !== 'super_admin') {
+          return { ...app, disabled: true, disabledReason: 'no_permission' };
+        }
+        return app;
+      }
+
+      // Business module assignment filter
+      if (businessApps && businessApps.length > 0) {
+        if (!businessApps.includes(app.id)) {
+          return { ...app, disabled: true, disabledReason: 'no_business_app' };
+        }
+      }
+
+      return app;
+    });
+  }, [apps, businessApps, systemRole]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -58,7 +88,7 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
       </div>
 
       <div className="grid grid-cols-3 gap-2.5">
-        {apps.map((app) => {
+        {effectiveApps.map((app) => {
           const isCurrent = app.id === currentAppId;
           const disabled = app.disabled;
           const isNoApp = app.disabledReason === 'no_business_app';

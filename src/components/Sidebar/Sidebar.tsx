@@ -22,6 +22,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   onLogout,
   permissionCheck,
   showSettings,
+  businessApps,
+  systemRole,
 }) => {
   const [hovered, setHovered] = useState(false);
   const [launcherOpen, setLauncherOpen] = useState(false);
@@ -119,6 +121,8 @@ const Sidebar: React.FC<SidebarProps> = ({
               onAppSelect!(app);
             }}
             onClose={() => setLauncherOpen(false)}
+            businessApps={businessApps}
+            systemRole={systemRole}
           />
         )}
       </AnimatePresence>

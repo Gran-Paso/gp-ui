@@ -39,6 +39,10 @@ export interface AppBarProps {
   children: React.ReactNode;
   /** Optional subscription badge forwarded to TopBar. */
   subscriptionBadge?: React.ReactNode;
+  /** Lista de app IDs habilitadas para el negocio actual (desde gp-admin). */
+  businessApps?: string[];
+  /** Rol de sistema del usuario (ej. 'super_admin'). Usado para filtrar GP Admin. */
+  systemRole?: string | null;
 }
 
 export type { NavItem, NavLeaf, NavGroup, NavSection, User, Business } from '../Sidebar/types';
