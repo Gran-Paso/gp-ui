@@ -37,6 +37,8 @@ export interface User {
   lastName: string;
   email: string;
   role: string;
+  /** Negocio activo (multi-tenant). */
+  businessName?: string;
 }
 
 export interface Business {

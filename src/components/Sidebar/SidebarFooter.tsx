@@ -51,6 +51,9 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({
             <p className="text-[13px] font-medium text-gray-700 truncate">
               {user.name} {user.lastName}
             </p>
+            {user.businessName && (
+              <p className="text-[10px] text-gray-400 truncate">{user.businessName}</p>
+            )}
             <p className="text-[11px] text-gray-400 truncate">{user.role}</p>
           </div>
         )}
