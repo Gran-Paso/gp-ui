@@ -23,6 +23,8 @@ export interface ProviderPickerPanelProps {
   reloadDisabled?: boolean;
   addLabel?: string;
   reloadLabel?: string;
+  showAddButton?: boolean;
+  showReloadButton?: boolean;
   className?: string;
 }
 
@@ -45,6 +47,8 @@ const ProviderPickerPanel: React.FC<ProviderPickerPanelProps> = ({
   reloadDisabled = false,
   addLabel = 'Agregar proveedor',
   reloadLabel = 'Recargar proveedores',
+  showAddButton = true,
+  showReloadButton = true,
   className = '',
 }) => (
   <fieldset
@@ -66,6 +70,7 @@ const ProviderPickerPanel: React.FC<ProviderPickerPanelProps> = ({
       <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-3">
         <div className="min-w-0 flex-1">{children}</div>
         <div className="flex shrink-0 gap-2 sm:flex-col sm:justify-stretch md:flex-row">
+          {showAddButton ? (
           <Button
             type="button"
             variant="outline"
@@ -77,6 +82,8 @@ const ProviderPickerPanel: React.FC<ProviderPickerPanelProps> = ({
             <Plus className="h-4 w-4 shrink-0" />
             {addLabel}
           </Button>
+          ) : null}
+          {showReloadButton ? (
           <Button
             type="button"
             variant="outline"
@@ -88,6 +95,7 @@ const ProviderPickerPanel: React.FC<ProviderPickerPanelProps> = ({
             <RefreshCw className={`h-4 w-4 shrink-0 ${loading ? 'animate-spin' : ''}`} />
             {reloadLabel}
           </Button>
+          ) : null}
         </div>
       </div>
       {error ? <p className="text-sm text-red-600">{error}</p> : null}
