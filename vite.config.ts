@@ -18,7 +18,9 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
+        mobile: resolve(__dirname, 'src/mobile/index.ts'),
         'theme/tailwind-preset': resolve(__dirname, 'src/theme/tailwind-preset.ts'),
+        'mobile/theme/mobile-preset': resolve(__dirname, 'src/mobile/theme/mobile-preset.ts'),
       },
       formats: ['es', 'cjs'],
       cssFileName: 'style',

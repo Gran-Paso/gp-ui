@@ -121,3 +121,25 @@ export {
   findDisallowedPermissionKeys,
 } from './permissions/businessPermissions';
 export type { PermissionSectionDef, PermissionSectionId } from './permissions/businessPermissions';
+
+// GP UI Mobile — personal / PRP shell
+export {
+  MobileShell,
+  MobileTabBar,
+  MobileDrawer,
+  MobileHeader,
+  ChartCanvas,
+  DesktopLightSidebar,
+  mobilePreset,
+} from './mobile';
+export type {
+  MobileUser,
+  MobileTab,
+  MobileDrawerItem,
+  MobileDrawerSection,
+  MobileShellProps,
+  MobileTabBarProps,
+  MobileDrawerProps,
+  MobileHeaderProps,
+  ChartCanvasProps,
+} from './mobile';

@@ -1,6 +1,6 @@
 {
   "name": "@gran-paso/ui",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Gran Paso ERP shared component library and design system",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -16,6 +16,16 @@
       "types": "./dist/theme/tailwind-preset.d.ts",
       "import": "./dist/theme/tailwind-preset.js",
       "require": "./dist/theme/tailwind-preset.cjs"
+    },
+    "./mobile": {
+      "types": "./dist/mobile.d.ts",
+      "import": "./dist/mobile.js",
+      "require": "./dist/mobile.cjs"
+    },
+    "./mobile/theme/mobile-preset": {
+      "types": "./dist/mobile/theme/mobile-preset.d.ts",
+      "import": "./dist/mobile/theme/mobile-preset.js",
+      "require": "./dist/mobile/theme/mobile-preset.cjs"
     },
     "./style.css": "./dist/style.css"
   },
