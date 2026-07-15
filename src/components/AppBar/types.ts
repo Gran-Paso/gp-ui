@@ -43,6 +43,8 @@ export interface AppBarProps {
   businessApps?: string[];
   /** Rol de sistema del usuario (ej. 'super_admin'). Usado para filtrar GP Admin. */
   systemRole?: string | null;
+  /** Click en app bloqueada del launcher (upsell / sin permiso). */
+  onLockedAppClick?: (app: AppDefinition) => void;
 }
 
 export type { NavItem, NavLeaf, NavGroup, NavSection, User, Business } from '../Sidebar/types';

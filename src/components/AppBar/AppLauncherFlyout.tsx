@@ -12,6 +12,11 @@ interface AppLauncherFlyoutProps {
   businessApps?: string[];
   /** Rol de sistema del usuario (ej. 'super_admin'). Usado para filtrar GP Admin. */
   systemRole?: string | null;
+  /**
+   * Click en app bloqueada (no contratada / sin permiso).
+   * Si no se pasa, el click no navega (solo tooltip).
+   */
+  onLockedAppClick?: (app: AppDefinition) => void;
 }
 
 const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
@@ -21,10 +26,13 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
   onClose,
   businessApps,
   systemRole,
+  onLockedAppClick,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
   const effectiveApps = React.useMemo(() => {
+    const isAdminBypass = systemRole === 'super_admin' || systemRole === 'admin';
+
     return apps.map((app) => {
       // Preserve any explicitly disabled state from the consumer
       if (app.disabled) return app;
@@ -37,8 +45,11 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
         return app;
       }
 
-      // Business module assignment filter
-      if (businessApps && businessApps.length > 0) {
+      // System admins see all contracted-module UI unlocked (same as gp-auth)
+      if (isAdminBypass) return app;
+
+      // Enforce business module list when provided (including empty → all locked)
+      if (Array.isArray(businessApps)) {
         if (!businessApps.includes(app.id)) {
           return { ...app, disabled: true, disabledReason: 'no_business_app' };
         }
@@ -90,7 +101,7 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
       <div className="grid grid-cols-3 gap-2.5">
         {effectiveApps.map((app) => {
           const isCurrent = app.id === currentAppId;
-          const disabled = app.disabled;
+          const disabled = Boolean(app.disabled);
           const isNoApp = app.disabledReason === 'no_business_app';
           const isNoPermission = app.disabledReason === 'no_permission';
           const Icon = app.icon;
@@ -98,8 +109,14 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
           return (
             <button
               key={app.id}
-              onClick={() => !disabled && onAppSelect(app)}
-              disabled={disabled}
+              type="button"
+              onClick={() => {
+                if (!disabled) {
+                  onAppSelect(app);
+                  return;
+                }
+                onLockedAppClick?.(app);
+              }}
               title={
                 isNoApp
                   ? 'Tu negocio no tiene contratada esta app'
@@ -107,11 +124,12 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
                     ? 'No tienes permisos para esta app'
                     : app.name
               }
+              aria-disabled={disabled}
               className={`relative flex flex-col items-center justify-center aspect-square rounded-xl border-2 gap-1.5 transition-all duration-150 ${
                 disabled
                   ? isNoApp
-                    ? 'border-amber-100 bg-amber-50/60 opacity-60 cursor-not-allowed'
-                    : 'border-gray-100 bg-gray-50 opacity-40 cursor-not-allowed'
+                    ? 'border-amber-100 bg-amber-50/60 opacity-60 cursor-pointer hover:opacity-80'
+                    : 'border-gray-100 bg-gray-50 opacity-40 cursor-pointer hover:opacity-60'
                   : isCurrent
                     ? 'border-green-400 bg-green-50 shadow-sm'
                     : 'border-gray-100 bg-white cursor-pointer hover:border-green-300 hover:shadow-md'

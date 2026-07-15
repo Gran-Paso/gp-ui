@@ -21,6 +21,7 @@ const AppBar: React.FC<AppBarProps> = ({
   subscriptionBadge,
   businessApps,
   systemRole,
+  onLockedAppClick,
   children,
 }) => {
   const [launcherOpen, setLauncherOpen] = useState(false);
@@ -64,6 +65,10 @@ const AppBar: React.FC<AppBarProps> = ({
             onClose={() => setLauncherOpen(false)}
             businessApps={businessApps}
             systemRole={systemRole}
+            onLockedAppClick={(app) => {
+              setLauncherOpen(false);
+              onLockedAppClick?.(app);
+            }}
           />
         )}
       </AnimatePresence>
