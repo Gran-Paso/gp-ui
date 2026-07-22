@@ -124,11 +124,13 @@ function WizardModal({
 
   return createPortal(
     <div
-      className={`fixed inset-0 flex items-center justify-center p-4 sm:p-6 ${stacked ? 'z-[140]' : 'z-[130]'}`}
+      className={`fixed inset-0 top-0 left-0 flex h-[100dvh] min-h-full w-screen max-w-none items-center justify-center p-4 sm:p-6 ${stacked ? 'z-[140]' : 'z-[130]'}`}
+      style={{ top: 0, left: 0, right: 0, bottom: 0 }}
       role="presentation"
     >
       <div
-        className="absolute inset-0 bg-[rgba(17,24,39,0.45)]"
+        className="absolute inset-0 top-0 left-0 right-0 bottom-0 bg-[rgba(17,24,39,0.45)]"
+        style={{ top: 0, left: 0, right: 0, bottom: 0 }}
         aria-hidden
         onMouseDown={handleBackdropMouseDown}
       />
