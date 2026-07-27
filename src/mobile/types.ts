@@ -31,6 +31,11 @@ export interface MobileShellProps {
   appSubtitle?: string;
   tabs: MobileTab[];
   drawerSections: MobileDrawerSection[];
+  /**
+   * Shown under the user block as "Configuración" (Finanzas, etc.).
+   * Prefer this for account/settings links instead of main drawer sections.
+   */
+  settingsSections?: MobileDrawerSection[];
   user: MobileUser | null;
   onLogout: () => void;
   /** Show "Ir a mi negocio" bridge when user has ERP access */
@@ -55,6 +60,7 @@ export interface MobileDrawerProps {
   open: boolean;
   onClose: () => void;
   sections: MobileDrawerSection[];
+  settingsSections?: MobileDrawerSection[];
   user: MobileUser | null;
   onLogout: () => void;
   onSwitchToErp?: () => void;

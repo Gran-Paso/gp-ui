@@ -10,6 +10,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
   appSubtitle = 'Personal',
   tabs,
   drawerSections,
+  settingsSections,
   user,
   onLogout,
   onSwitchToErp,
@@ -28,6 +29,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
         appSubtitle={appSubtitle}
         tabs={tabs}
         drawerSections={drawerSections}
+        settingsSections={settingsSections}
         user={user}
         onLogout={onLogout}
       />
@@ -63,6 +65,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         sections={drawerSections}
+        settingsSections={settingsSections}
         user={user}
         onLogout={onLogout}
         onSwitchToErp={onSwitchToErp}

@@ -22,6 +22,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
   open,
   onClose,
   sections,
+  settingsSections = [],
   user,
   onLogout,
   onSwitchToErp,
@@ -89,19 +90,55 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
             </div>
 
             {user ? (
-              <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-gp-vinculo flex items-center justify-center shrink-0">
-                  <span className="text-white font-bold text-sm">{initials}</span>
+              <div className="border-b border-gray-100">
+                <div className="flex items-center gap-3 px-4 py-4">
+                  <div className="w-10 h-10 rounded-full bg-gp-vinculo flex items-center justify-center shrink-0">
+                    <span className="text-white font-bold text-sm">{initials}</span>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-gray-900 truncate">
+                      {user.name}
+                      {user.lastName ? ` ${user.lastName}` : ''}
+                    </p>
+                    {user.email ? (
+                      <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                    ) : null}
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-gray-900 truncate">
-                    {user.name}
-                    {user.lastName ? ` ${user.lastName}` : ''}
-                  </p>
-                  {user.email ? (
-                    <p className="text-xs text-gray-400 truncate">{user.email}</p>
-                  ) : null}
-                </div>
+
+                {settingsSections.length > 0 ? (
+                  <div className="px-3 pb-4">
+                    {settingsSections.map((section) => (
+                      <div key={section.label} className="mb-1">
+                        <p className="px-2 mb-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                          {section.label}
+                        </p>
+                        <ul className="space-y-0.5">
+                          {section.items.map((item) => {
+                            const Icon = item.icon;
+                            const isActive = location.pathname === item.to;
+                            return (
+                              <li key={item.to}>
+                                <Link
+                                  to={item.to}
+                                  onClick={onClose}
+                                  className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${
+                                    isActive
+                                      ? 'bg-gp-vinculo-soft text-gp-teal-600'
+                                      : 'text-gray-700 hover:bg-gray-50'
+                                  }`}
+                                >
+                                  <Icon size={18} className="text-gp-teal-400 shrink-0" />
+                                  {item.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             ) : null}
 
