@@ -70,8 +70,8 @@ const DesktopLightSidebar: React.FC<DesktopLightSidebarProps> = ({
     : '?';
 
   return (
-    <aside className="hidden lg:flex w-60 shrink-0 flex-col bg-white border-r border-gray-100">
-      <div className="p-5 border-b border-gray-100">
+    <aside className="hidden lg:flex h-screen w-60 shrink-0 flex-col min-h-0 bg-white border-r border-gray-100">
+      <div className="shrink-0 p-5 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <GpLogo size={32} />
           <div>
@@ -81,7 +81,7 @@ const DesktopLightSidebar: React.FC<DesktopLightSidebarProps> = ({
         </div>
       </div>
 
-      <nav className="flex-1 overflow-y-auto p-3">
+      <nav className="flex-1 min-h-0 overflow-y-auto p-3">
         <p className="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-widest text-gray-400">
           Principal
         </p>
@@ -113,9 +113,13 @@ const DesktopLightSidebar: React.FC<DesktopLightSidebarProps> = ({
         {drawerSections.map((section) => (
           <NavSection key={section.label} label={section.label} items={section.items} />
         ))}
+
+        {settingsSections.map((section) => (
+          <NavSection key={section.label} label={section.label} items={section.items} />
+        ))}
       </nav>
 
-      <div className="border-t border-gray-100 p-3">
+      <div className="shrink-0 border-t border-gray-100 p-3">
         {user ? (
           <div className="mb-3 px-1">
             <div className="flex items-center gap-3 px-2 py-2">
@@ -132,14 +136,6 @@ const DesktopLightSidebar: React.FC<DesktopLightSidebarProps> = ({
                 ) : null}
               </div>
             </div>
-
-            {settingsSections.map((section) => (
-              <NavSection
-                key={section.label}
-                label={section.label}
-                items={section.items}
-              />
-            ))}
           </div>
         ) : null}
 

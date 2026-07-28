@@ -23,7 +23,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
       <DesktopLightSidebar
         appName={appName}
         appSubtitle={appSubtitle}
@@ -34,7 +34,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
         onLogout={onLogout}
       />
 
-      <div className="flex flex-1 flex-col min-w-0 min-h-screen">
+      <div className="flex flex-1 flex-col min-h-0 min-w-0">
         {!hideHeader ? (
           <MobileHeader
             appName={appName}
@@ -45,7 +45,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
         ) : null}
 
         <main
-          className={`flex-1 overflow-y-auto overflow-x-hidden ${
+          className={`flex-1 min-h-0 overflow-y-auto overflow-x-hidden ${
             hideTabBar ? '' : 'pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0'
           }`}
         >
