@@ -7,6 +7,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
   appSubtitle = 'Personal',
   user,
   onAvatarClick,
+  planBadge,
 }) => {
   const initials = user
     ? `${user.name?.[0] ?? ''}${user.lastName?.[0] ?? user.name?.[1] ?? ''}`.toUpperCase()
@@ -17,7 +18,10 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
       <div className="flex items-center gap-2.5 min-w-0">
         <GpLogo size={28} />
         <div className="min-w-0">
-          <p className="text-sm font-extrabold text-gray-900 leading-none truncate">{appName}</p>
+          <div className="flex items-center gap-2 min-w-0">
+            <p className="text-sm font-extrabold text-gray-900 leading-none truncate">{appName}</p>
+            {planBadge}
+          </div>
           <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate">{appSubtitle}</p>
         </div>
       </div>

@@ -48,6 +48,8 @@ export interface MobileShellProps {
   hideTabBar?: boolean;
   /** Hide compact header on mobile */
   hideHeader?: boolean;
+  /** Optional plan / subscription badge under app title */
+  planBadge?: React.ReactNode;
 }
 
 export interface MobileTabBarProps {
@@ -74,6 +76,7 @@ export interface MobileHeaderProps {
   appSubtitle?: string;
   user: MobileUser | null;
   onAvatarClick?: () => void;
+  planBadge?: React.ReactNode;
 }
 
 export interface ChartCanvasProps {

@@ -19,6 +19,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
   children,
   hideTabBar = false,
   hideHeader = false,
+  planBadge,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -32,6 +33,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
         settingsSections={settingsSections}
         user={user}
         onLogout={onLogout}
+        planBadge={planBadge}
       />
 
       <div className="flex flex-1 flex-col min-h-0 min-w-0">
@@ -41,6 +43,7 @@ const MobileShell: React.FC<MobileShellProps> = ({
             appSubtitle={appSubtitle}
             user={user}
             onAvatarClick={() => setDrawerOpen(true)}
+            planBadge={planBadge}
           />
         ) : null}
 

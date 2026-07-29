@@ -12,6 +12,7 @@ interface DesktopLightSidebarProps {
   settingsSections?: MobileDrawerSection[];
   user: MobileUser | null;
   onLogout: () => void;
+  planBadge?: React.ReactNode;
 }
 
 function NavSection({
@@ -62,6 +63,7 @@ const DesktopLightSidebar: React.FC<DesktopLightSidebarProps> = ({
   settingsSections = [],
   user,
   onLogout,
+  planBadge,
 }) => {
   const location = useLocation();
 
@@ -74,8 +76,11 @@ const DesktopLightSidebar: React.FC<DesktopLightSidebarProps> = ({
       <div className="shrink-0 p-5 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <GpLogo size={32} />
-          <div>
-            <p className="text-sm font-extrabold text-gray-900 leading-none">{appName}</p>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 min-w-0 flex-wrap">
+              <p className="text-sm font-extrabold text-gray-900 leading-none">{appName}</p>
+              {planBadge}
+            </div>
             <p className="text-xs text-gray-400 mt-0.5">{appSubtitle}</p>
           </div>
         </div>
