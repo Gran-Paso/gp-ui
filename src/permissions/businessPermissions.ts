@@ -138,7 +138,8 @@ export const PERM_LABELS: Record<string, string> = {
   manage_supplies: 'Gestionar insumos',
   view_supply_stock: 'Ver bodega de insumos',
   manage_supply_stock: 'Gestionar bodega de insumos',
-  view_operational_dashboard: 'Ver dashboard operativo (logístico)',
+  view_operational_dashboard:
+    'Ver dashboard operativo (abre la pantalla; KPIs requieren Ver bodega / insumos / conteo)',
   quick_create_inventory_providers: 'Crear proveedor rápido (Inventario)',
   view_cycle_count: 'Ver conteo cíclico (tareas)',
   manage_cycle_count: 'Gestionar conteo cíclico (configuración y clases)',
