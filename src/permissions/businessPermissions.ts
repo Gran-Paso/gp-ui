@@ -54,14 +54,15 @@ export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
   pay_recurrentes: false,
   view_presupuestos: false,
   manage_presupuestos: false,
-  view_inventory: false,
-  manage_inventory: false,
-  view_store_inventories: false,
-  manage_store_inventories: false,
   view_products: false,
   manage_products: false,
+  view_product_stock: false,
+  manage_product_stock: false,
+  view_supplies: false,
+  manage_supplies: false,
+  view_supply_stock: false,
+  manage_supply_stock: false,
   view_operational_dashboard: false,
-  view_inventory_providers: false,
   quick_create_inventory_providers: false,
   view_cycle_count: false,
   manage_cycle_count: false,
@@ -78,8 +79,6 @@ export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
   view_processes: false,
   manage_processes: false,
   complete_process: false,
-  view_supplies: false,
-  manage_supplies: false,
   view_components: false,
   manage_components: false,
   view_factory_products: false,
@@ -131,14 +130,15 @@ export const PERM_LABELS: Record<string, string> = {
   pay_recurrentes: 'Pagar gastos recurrentes',
   view_presupuestos: 'Ver presupuestos',
   manage_presupuestos: 'Gestionar presupuestos',
-  view_inventory: 'Ver inventario',
-  manage_inventory: 'Gestionar inventario',
-  view_store_inventories: 'Ver inventarios de tienda',
-  manage_store_inventories: 'Gestionar inventarios de tienda',
   view_products: 'Ver productos',
   manage_products: 'Gestionar productos',
+  view_product_stock: 'Ver bodega de productos',
+  manage_product_stock: 'Gestionar bodega de productos',
+  view_supplies: 'Ver insumos',
+  manage_supplies: 'Gestionar insumos',
+  view_supply_stock: 'Ver bodega de insumos',
+  manage_supply_stock: 'Gestionar bodega de insumos',
   view_operational_dashboard: 'Ver dashboard operativo (logístico)',
-  view_inventory_providers: 'Ver lista de proveedores (Inventario)',
   quick_create_inventory_providers: 'Crear proveedor rápido (Inventario)',
   view_cycle_count: 'Ver conteo cíclico (tareas)',
   manage_cycle_count: 'Gestionar conteo cíclico (configuración y clases)',
@@ -155,8 +155,6 @@ export const PERM_LABELS: Record<string, string> = {
   view_processes: 'Ver procesos',
   manage_processes: 'Gestionar procesos',
   complete_process: 'Completar procesos',
-  view_supplies: 'Ver insumos',
-  manage_supplies: 'Gestionar insumos',
   view_components: 'Ver componentes',
   manage_components: 'Gestionar componentes',
   view_factory_products: 'Ver productos (producción)',
@@ -237,14 +235,15 @@ export const ALL_PERMISSION_SECTIONS: PermissionSectionDef[] = [
     headerBg: 'bg-amber-50',
     badgeClass: 'bg-amber-50 text-amber-700',
     keys: [
-      'view_inventory',
-      'manage_inventory',
-      'view_store_inventories',
-      'manage_store_inventories',
       'view_products',
       'manage_products',
+      'view_product_stock',
+      'manage_product_stock',
+      'view_supplies',
+      'manage_supplies',
+      'view_supply_stock',
+      'manage_supply_stock',
       'view_operational_dashboard',
-      'view_inventory_providers',
       'quick_create_inventory_providers',
       'view_cycle_count',
       'manage_cycle_count',
@@ -401,13 +400,45 @@ export function buildDefaultPermissionsForBusiness(businessApps: string[]): Reco
   return result;
 }
 
+const LEGACY_INVENTORY_KEYS = [
+  'view_inventory',
+  'manage_inventory',
+  'view_store_inventories',
+  'manage_store_inventories',
+  'view_inventory_providers',
+] as const;
+
+/**
+ * #202 — Map legacy inventory chips onto catalog/bodega keys before strip/save.
+ * view_inventory → view_product_stock; manage_inventory → manage_product_stock + manage_supply_stock.
+ */
+export function migrateLegacyInventoryPermissions(
+  permissions: Record<string, boolean>,
+): Record<string, boolean> {
+  const result: Record<string, boolean> = { ...permissions };
+  const on = (key: string) => result[key] === true;
+
+  if (on('view_inventory') || on('view_store_inventories')) {
+    result.view_product_stock = true;
+  }
+  if (on('manage_inventory') || on('manage_store_inventories')) {
+    result.manage_product_stock = true;
+    result.manage_supply_stock = true;
+  }
+  for (const legacy of LEGACY_INVENTORY_KEYS) {
+    delete result[legacy];
+  }
+  return result;
+}
+
 export function stripPermissionsForBusiness(
   permissions: Record<string, boolean>,
   businessApps: string[],
 ): Record<string, boolean> {
+  const migrated = migrateLegacyInventoryPermissions(permissions);
   const allowed = getAllowedPermissionKeysForBusiness(businessApps);
   const result: Record<string, boolean> = {};
-  for (const [key, value] of Object.entries(permissions)) {
+  for (const [key, value] of Object.entries(migrated)) {
     if (OWNER_ONLY_PERMISSION_KEYS.includes(key as (typeof OWNER_ONLY_PERMISSION_KEYS)[number])) {
       continue;
     }
@@ -422,10 +453,11 @@ export function findDisallowedPermissionKeys(
   permissions: Record<string, boolean>,
   businessApps: string[],
 ): string[] {
+  const migrated = migrateLegacyInventoryPermissions(permissions);
   const allowed = getAllowedPermissionKeysForBusiness(businessApps);
-  return Object.keys(permissions).filter(
+  return Object.keys(migrated).filter(
     (key) =>
-      permissions[key] === true &&
+      migrated[key] === true &&
       !allowed.has(key) &&
       !OWNER_ONLY_PERMISSION_KEYS.includes(key as (typeof OWNER_ONLY_PERMISSION_KEYS)[number]),
   );

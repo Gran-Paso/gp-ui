@@ -119,6 +119,7 @@ export {
   buildDefaultPermissionsForBusiness,
   stripPermissionsForBusiness,
   findDisallowedPermissionKeys,
+  migrateLegacyInventoryPermissions,
 } from './permissions/businessPermissions';
 export type { PermissionSectionDef, PermissionSectionId } from './permissions/businessPermissions';
 
