@@ -62,6 +62,8 @@ export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
   manage_supplies: false,
   view_supply_stock: false,
   manage_supply_stock: false,
+  view_factory_supplies: false,
+  manage_factory_supplies: false,
   view_operational_dashboard: false,
   quick_create_inventory_providers: false,
   view_cycle_count: false,
@@ -138,6 +140,8 @@ export const PERM_LABELS: Record<string, string> = {
   manage_supplies: 'Gestionar insumos',
   view_supply_stock: 'Ver bodega de insumos',
   manage_supply_stock: 'Gestionar bodega de insumos',
+  view_factory_supplies: 'Ver insumos (producción)',
+  manage_factory_supplies: 'Gestionar insumos (producción)',
   view_operational_dashboard:
     'Ver dashboard operativo (abre la pantalla; KPIs requieren Ver bodega / insumos / conteo)',
   quick_create_inventory_providers: 'Crear proveedor rápido (Inventario)',
@@ -278,8 +282,8 @@ export const ALL_PERMISSION_SECTIONS: PermissionSectionDef[] = [
       'view_processes',
       'manage_processes',
       'complete_process',
-      'view_supplies',
-      'manage_supplies',
+      'view_factory_supplies',
+      'manage_factory_supplies',
       'view_components',
       'manage_components',
       'view_factory_products',
@@ -412,6 +416,9 @@ const LEGACY_INVENTORY_KEYS = [
 /**
  * #202 — Map legacy inventory chips onto catalog/bodega keys before strip/save.
  * view_inventory → view_product_stock; manage_inventory → manage_product_stock + manage_supply_stock.
+ *
+ * #225 — Seed factory supply keys once from shared view_supplies/manage_supplies when absent,
+ * so existing Factory access is preserved; afterwards chips stay independent.
  */
 export function migrateLegacyInventoryPermissions(
   permissions: Record<string, boolean>,
@@ -426,6 +433,15 @@ export function migrateLegacyInventoryPermissions(
     result.manage_product_stock = true;
     result.manage_supply_stock = true;
   }
+
+  // #225 — one-shot seed (only if key missing, never overwrite explicit false)
+  if (on('view_supplies') && !Object.prototype.hasOwnProperty.call(result, 'view_factory_supplies')) {
+    result.view_factory_supplies = true;
+  }
+  if (on('manage_supplies') && !Object.prototype.hasOwnProperty.call(result, 'manage_factory_supplies')) {
+    result.manage_factory_supplies = true;
+  }
+
   for (const legacy of LEGACY_INVENTORY_KEYS) {
     delete result[legacy];
   }
