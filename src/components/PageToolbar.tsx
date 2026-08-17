@@ -11,7 +11,7 @@ export interface PageToolbarProps {
  */
 const PageToolbar: React.FC<PageToolbarProps> = ({ children, className = '' }) => (
   <div
-    className={`flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm md:flex-row md:flex-wrap md:items-center md:gap-4 md:p-5 ${className}`}
+    className={`flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm md:flex-row md:flex-wrap md:items-center md:gap-4 md:p-5 dark:border-gray-800 dark:bg-gray-900 ${className}`}
   >
     {children}
   </div>

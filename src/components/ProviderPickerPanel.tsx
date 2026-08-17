@@ -53,16 +53,16 @@ const ProviderPickerPanel: React.FC<ProviderPickerPanelProps> = ({
 }) => (
   <fieldset
     disabled={disabled}
-    className={`overflow-hidden rounded-lg border border-gray-200 bg-white ${className}`}
+    className={`overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900 ${className}`}
   >
     <legend className="sr-only">{typeof label === 'string' ? label : 'Selección de proveedor'}</legend>
-    <div className="flex items-center gap-2 border-b border-red-100/90 bg-red-50/60 px-3 py-2">
+    <div className="flex items-center gap-2 border-b border-red-100/90 bg-red-50/60 px-3 py-2 dark:border-red-500/20 dark:bg-red-500/10">
       <Building2 className="h-4 w-4 shrink-0 text-red-600" aria-hidden />
-      <span className="text-sm font-medium text-gray-900">Proveedores</span>
+      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Proveedores</span>
     </div>
     <div className="space-y-3 p-3 sm:p-4">
       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-        <span className="text-sm text-gray-800">{label}</span>
+        <span className="text-sm text-gray-800 dark:text-gray-200">{label}</span>
         {labelSuffix != null && labelSuffix !== false ? (
           <span className="text-xs text-gray-500">{labelSuffix}</span>
         ) : null}
@@ -77,7 +77,7 @@ const ProviderPickerPanel: React.FC<ProviderPickerPanelProps> = ({
             size="sm"
             disabled={disabled || addDisabled}
             onClick={onAddProvider}
-            className="flex-1 justify-center border-red-200/90 bg-white text-red-800 hover:bg-red-50 sm:min-w-[9.5rem]"
+            className="flex-1 justify-center border-red-200/90 bg-white text-red-800 hover:bg-red-50 sm:min-w-[9.5rem] dark:border-red-500/30 dark:bg-gray-900 dark:text-red-300 dark:hover:bg-red-500/10"
           >
             <Plus className="h-4 w-4 shrink-0" />
             {addLabel}
@@ -90,7 +90,7 @@ const ProviderPickerPanel: React.FC<ProviderPickerPanelProps> = ({
             size="sm"
             disabled={disabled || reloadDisabled || loading}
             onClick={onReloadProviders}
-            className="flex-1 justify-center border-gray-200 bg-white text-gray-700 hover:bg-gray-50 sm:min-w-[9.5rem]"
+            className="flex-1 justify-center border-gray-200 bg-white text-gray-700 hover:bg-gray-50 sm:min-w-[9.5rem] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-white/5"
           >
             <RefreshCw className={`h-4 w-4 shrink-0 ${loading ? 'animate-spin' : ''}`} />
             {reloadLabel}

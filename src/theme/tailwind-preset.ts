@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const gpPreset: Partial<Config> = {
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {

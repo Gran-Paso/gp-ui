@@ -15,7 +15,7 @@ export interface SpinnerProps {
  */
 const Spinner: React.FC<SpinnerProps> = ({
   size = 'md',
-  color = 'border-gray-200 border-t-teal-600',
+  color = 'border-gray-200 border-t-teal-600 dark:border-gray-700 dark:border-t-teal-400',
   className = '',
 }) => (
   <div

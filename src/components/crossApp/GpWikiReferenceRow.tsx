@@ -12,7 +12,7 @@ export interface GpWikiReferenceRowProps {
 }
 
 const shell =
-  'flex items-center gap-2.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-left transition-colors hover:bg-gray-50';
+  'flex items-center gap-2.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-left transition-colors hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-white/5';
 
 /**
  * Compact wiki link preview for cross-app surfaces (CRM, HR, etc.).
@@ -30,7 +30,7 @@ export const GpWikiReferenceRow: React.FC<GpWikiReferenceRowProps> = ({
     <>
       <BookOpen size={15} className="shrink-0 text-gray-500" aria-hidden />
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium text-gray-900 truncate">{title}</p>
+        <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-100">{title}</p>
         {hint ? <p className="text-[11px] text-gray-500 truncate">{hint}</p> : null}
       </div>
       {trailing}

@@ -89,10 +89,10 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
       animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={{ opacity: 0, x: -12, scale: 0.96 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="fixed top-4 left-16 z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-[320px]"
+      className="fixed top-4 left-16 z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-[320px] dark:bg-gray-900 dark:border-gray-800"
     >
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-sm font-bold text-gray-900 font-montserrat">
+        <h2 className="text-sm font-bold text-gray-900 font-montserrat dark:text-gray-100">
           Aplicaciones
         </h2>
         <span className="text-[10px] text-gray-400">Gran Paso ERP</span>
@@ -128,11 +128,11 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
               className={`relative flex flex-col items-center justify-center aspect-square rounded-xl border-2 gap-1.5 transition-all duration-150 ${
                 disabled
                   ? isNoApp
-                    ? 'border-amber-100 bg-amber-50/60 opacity-60 cursor-pointer hover:opacity-80'
-                    : 'border-gray-100 bg-gray-50 opacity-40 cursor-pointer hover:opacity-60'
+                    ? 'border-amber-100 bg-amber-50/60 opacity-60 cursor-pointer hover:opacity-80 dark:border-amber-500/20 dark:bg-amber-500/10'
+                    : 'border-gray-100 bg-gray-50 opacity-40 cursor-pointer hover:opacity-60 dark:border-gray-800 dark:bg-gray-800'
                   : isCurrent
-                    ? 'border-green-400 bg-green-50 shadow-sm'
-                    : 'border-gray-100 bg-white cursor-pointer hover:border-green-300 hover:shadow-md'
+                    ? 'border-green-400 bg-green-50 shadow-sm dark:bg-green-500/15'
+                    : 'border-gray-100 bg-white cursor-pointer hover:border-green-300 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-green-500/50'
               }`}
             >
               {isNoApp && (
@@ -165,14 +165,14 @@ const AppLauncherFlyout: React.FC<AppLauncherFlyoutProps> = ({
                       ? 'text-amber-400'
                       : 'text-gray-400'
                     : isCurrent
-                      ? 'text-green-700'
-                      : 'text-gray-700'
+                      ? 'text-green-700 dark:text-green-300'
+                      : 'text-gray-700 dark:text-gray-200'
                 }`}
               >
                 {app.shortName}
               </span>
               {isCurrent && (
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white dark:border-gray-900" />
               )}
             </button>
           );

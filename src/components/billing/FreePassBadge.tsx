@@ -71,6 +71,7 @@ const FreePassBadge: React.FC<FreePassBadgeProps> = ({
         px-2.5 py-0.5
         text-[11px] font-semibold uppercase tracking-wider text-amber-700
         shadow-sm
+        dark:border-amber-500/40 dark:bg-amber-500/15 dark:text-amber-300
         ${className}
       `}
     >

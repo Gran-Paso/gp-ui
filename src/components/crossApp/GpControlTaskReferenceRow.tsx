@@ -43,7 +43,7 @@ const CoreInner: React.FC<{
       {typeLabel}
     </span>
     <div className="min-w-0 flex-1">
-      <p className="text-sm font-medium text-gray-900 truncate">{title}</p>
+      <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-100">{title}</p>
       {subtitle ? <p className="text-[11px] text-gray-500 truncate">{subtitle}</p> : null}
     </div>
     {assigneeName ? (
@@ -61,7 +61,7 @@ const CoreInner: React.FC<{
 );
 
 const ghostHit =
-  'flex flex-1 min-w-0 items-center gap-2 rounded-md px-1 py-0.5 text-left transition-colors hover:bg-gray-50';
+  'flex flex-1 min-w-0 items-center gap-2 rounded-md px-1 py-0.5 text-left transition-colors hover:bg-gray-50 dark:hover:bg-white/5';
 
 /**
  * Unified list row for Control / Kanban tasks when shown outside the board.
@@ -97,7 +97,7 @@ export const GpControlTaskReferenceRow: React.FC<GpControlTaskReferenceRowProps>
   if (trailing) {
     return (
       <div
-        className={`flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 transition-colors hover:bg-gray-50 ${className}`}
+        className={`flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5 transition-colors hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-white/5 ${className}`}
       >
         {href ? (
           <a href={href} className={`${ghostHit} no-underline text-inherit cursor-pointer`} onClick={onClick}>
@@ -119,7 +119,7 @@ export const GpControlTaskReferenceRow: React.FC<GpControlTaskReferenceRowProps>
   }
 
   const shell =
-    'flex w-full items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-left transition-colors hover:bg-gray-50';
+    'flex w-full items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-left transition-colors hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-white/5';
 
   if (href) {
     return (

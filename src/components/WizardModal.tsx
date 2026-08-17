@@ -138,7 +138,7 @@ function WizardModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`relative flex max-h-[min(90vh,900px)] w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl ${sizeClasses[size]} ${className}`}
+        className={`relative flex max-h-[min(90vh,900px)] w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl dark:border-gray-800 dark:bg-gray-900 ${sizeClasses[size]} ${className}`}
       >
         <header className={`shrink-0 px-6 py-4 ${palette.header}`}>
           <div className="flex items-start justify-between gap-4">
@@ -169,24 +169,24 @@ function WizardModal({
           </div>
         </header>
 
-        <div className="h-1 shrink-0 bg-gray-200" aria-hidden>
+        <div className="h-1 shrink-0 bg-gray-200 dark:bg-gray-800" aria-hidden>
           <div className={`h-full transition-[width] duration-300 ease-out ${palette.progress}`} style={{ width: `${pct}%` }} />
         </div>
 
         <div className="relative min-h-0 flex-1 overflow-y-auto">
           <div className="px-6 py-6">{children}</div>
           {busy ? (
-            <div className="absolute inset-0 flex items-center justify-center rounded-b-2xl bg-white/85 backdrop-blur-[1px]">
+            <div className="absolute inset-0 flex items-center justify-center rounded-b-2xl bg-white/85 backdrop-blur-[1px] dark:bg-gray-900/85">
               <div className="text-center">
                 <Spinner size="lg" color={palette.spinner} className="mx-auto mb-4" />
-                <p className="font-semibold text-gray-800">{busyLabel}</p>
+                <p className="font-semibold text-gray-800 dark:text-gray-100">{busyLabel}</p>
               </div>
             </div>
           ) : null}
         </div>
 
         {footer != null && footer !== false ? (
-          <footer className="flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-gray-100 px-6 py-4">
+          <footer className="flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-gray-100 px-6 py-4 dark:border-gray-800">
             {footer}
           </footer>
         ) : null}

@@ -31,7 +31,7 @@ const LeafItem: React.FC<{
     return (
       <a
         href={item.href}
-        className={`${base} ${sizing} ${accent.hoverBg} text-gray-500 hover:text-gray-700 relative`}
+        className={`${base} ${sizing} ${accent.hoverBg} text-gray-500 hover:text-gray-700 relative dark:text-gray-400 dark:hover:text-gray-200`}
       >
         <Icon size={indent ? 15 : 18} className={`shrink-0 ${accent.navIcon}`} />
         {expanded && (
@@ -64,7 +64,7 @@ const LeafItem: React.FC<{
         `${base} ${sizing} ${
           isActive
             ? `${accent.activeBg} ${accent.activeText} font-semibold`
-            : `${accent.hoverBg} text-gray-500 hover:text-gray-700`
+            : `${accent.hoverBg} text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`
         }`
       }
     >
@@ -108,7 +108,7 @@ const GroupItem: React.FC<{
         } ${
           anyActive
             ? `${accent.activeBg} ${accent.activeText} font-semibold`
-            : `${accent.hoverBg} text-gray-500 hover:text-gray-700`
+            : `${accent.hoverBg} text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`
         }`}
       >
         <Icon
@@ -135,7 +135,7 @@ const GroupItem: React.FC<{
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={transition150}
-            className="overflow-hidden ml-3 mt-0.5 space-y-0.5 border-l border-gray-100 pl-2"
+            className="overflow-hidden ml-3 mt-0.5 space-y-0.5 border-l border-gray-100 pl-2 dark:border-gray-800"
           >
             {visibleChildren.map((child) => (
               <LeafItem key={child.to} item={child} expanded={expanded} accent={accent} indent />
@@ -164,9 +164,9 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ items, expanded, hasPerm, accen
 
     return (
       <React.Fragment key={idx}>
-        <div className="h-px bg-gray-100 my-2" />
+        <div className="h-px bg-gray-100 my-2 dark:bg-gray-800" />
         {expanded && (
-          <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">
+          <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
             {s.label}
           </p>
         )}
