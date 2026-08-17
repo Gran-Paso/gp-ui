@@ -22,22 +22,22 @@ function SubscriptionWall({
 
   return (
     <div
-      className="absolute inset-0 z-[60] flex flex-col items-center justify-center bg-gray-50/95 px-6 py-12 backdrop-blur-[2px]"
+      className="absolute inset-0 z-[60] flex flex-col items-center justify-center bg-gray-50/95 px-6 py-12 backdrop-blur-[2px] dark:bg-gray-950/95"
       role="alertdialog"
       aria-labelledby="gp-sub-wall-title"
       aria-describedby="gp-sub-wall-desc"
     >
-      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl">
+      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl dark:border-gray-800 dark:bg-gray-900">
         <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-600">
           <CreditCard size={28} strokeWidth={2} />
         </div>
         <h1
           id="gp-sub-wall-title"
-          className="text-center font-montserrat text-xl font-bold text-gray-900"
+          className="text-center font-montserrat text-xl font-bold text-gray-900 dark:text-gray-100"
         >
           Suscripción suspendida
         </h1>
-        <p id="gp-sub-wall-desc" className="mt-3 text-center text-sm leading-relaxed text-gray-600">
+        <p id="gp-sub-wall-desc" className="mt-3 text-center text-sm leading-relaxed text-gray-600 dark:text-gray-300">
           El acceso a esta aplicación está bloqueado hasta regularizar el pago. Si ya pagaste, espera unos
           minutos o contacta soporte.
         </p>
@@ -68,7 +68,7 @@ function SubscriptionWall({
             <button
               type="button"
               onClick={onSignOut}
-              className="flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-800"
+              className="flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-800 dark:hover:bg-white/5 dark:hover:text-gray-200"
             >
               <LogOut size={18} />
               Cerrar sesión

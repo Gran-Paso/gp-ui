@@ -18,8 +18,8 @@ export interface StatCardProps {
 
 const ValueSkeleton: React.FC = () => (
   <div className="space-y-2">
-    <div className="h-2 w-16 rounded bg-gray-100 animate-pulse" />
-    <div className="h-9 w-28 rounded bg-gray-100 animate-pulse" />
+    <div className="h-2 w-16 rounded bg-gray-100 animate-pulse dark:bg-gray-800" />
+    <div className="h-9 w-28 rounded bg-gray-100 animate-pulse dark:bg-gray-800" />
   </div>
 );
 
@@ -37,7 +37,7 @@ const StatCard: React.FC<StatCardProps> = ({
   children,
   className = '',
 }) => (
-  <div className={`bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-4 ${className}`}>
+  <div className={`bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-4 dark:bg-gray-900 dark:border-gray-800 ${className}`}>
     <div className="flex items-start justify-between gap-3">
       <div className="min-w-0 flex-1">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">
@@ -47,7 +47,7 @@ const StatCard: React.FC<StatCardProps> = ({
           <ValueSkeleton />
         ) : (
           <>
-            <p className="text-3xl font-bold text-gray-800 font-montserrat leading-none">
+            <p className="text-3xl font-bold text-gray-800 font-montserrat leading-none dark:text-gray-100">
               {value}
             </p>
             {description && (
@@ -60,7 +60,7 @@ const StatCard: React.FC<StatCardProps> = ({
     </div>
 
     {children && (
-      <div className="border-t border-gray-50 pt-3">
+      <div className="border-t border-gray-50 pt-3 dark:border-gray-800">
         {children}
       </div>
     )}

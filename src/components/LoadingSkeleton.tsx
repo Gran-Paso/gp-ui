@@ -7,11 +7,11 @@ export interface LoadingSkeletonProps {
 }
 
 const SkeletonLine: React.FC<{ className?: string }> = ({ className = '' }) => (
-  <div className={`bg-gray-200 animate-pulse rounded-lg ${className}`} />
+  <div className={`bg-gray-200 animate-pulse rounded-lg dark:bg-gray-700 ${className}`} />
 );
 
 const CardSkeleton: React.FC = () => (
-  <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+  <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4 dark:bg-gray-900 dark:border-gray-800">
     <SkeletonLine className="h-5 w-1/3" />
     <SkeletonLine className="h-4 w-full" />
     <SkeletonLine className="h-4 w-2/3" />
@@ -19,15 +19,15 @@ const CardSkeleton: React.FC = () => (
 );
 
 const TableSkeleton: React.FC<{ rows: number }> = ({ rows }) => (
-  <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-    <div className="bg-gray-50 border-b border-gray-200 px-4 py-3 flex gap-4">
+  <div className="bg-white rounded-xl border border-gray-200 overflow-hidden dark:bg-gray-900 dark:border-gray-800">
+    <div className="bg-gray-50 border-b border-gray-200 px-4 py-3 flex gap-4 dark:bg-gray-800/60 dark:border-gray-800">
       <SkeletonLine className="h-3 w-24" />
       <SkeletonLine className="h-3 w-32" />
       <SkeletonLine className="h-3 w-20" />
       <SkeletonLine className="h-3 w-28" />
     </div>
     {Array.from({ length: rows }).map((_, i) => (
-      <div key={i} className="border-b border-gray-100 px-4 py-3 flex gap-4">
+      <div key={i} className="border-b border-gray-100 px-4 py-3 flex gap-4 dark:border-gray-800">
         <SkeletonLine className="h-4 w-24" />
         <SkeletonLine className="h-4 w-32" />
         <SkeletonLine className="h-4 w-20" />

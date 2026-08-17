@@ -95,17 +95,17 @@ const Modal: React.FC<ModalProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`relative flex max-h-[min(90vh,900px)] w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl ${sizeClasses[size]} ${className}`}
+        className={`relative flex max-h-[min(90vh,900px)] w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl dark:border-gray-800 dark:bg-gray-900 ${sizeClasses[size]} ${className}`}
       >
-        <header className="flex shrink-0 items-start justify-between gap-4 border-b border-gray-100 px-5 py-4 sm:px-6">
+        <header className="flex shrink-0 items-start justify-between gap-4 border-b border-gray-100 px-5 py-4 sm:px-6 dark:border-gray-800">
           <div className="flex min-w-0 flex-1 items-start gap-3">
             {icon && <div className="shrink-0 pt-0.5">{icon}</div>}
             <div className="min-w-0">
-              <h2 id={titleId} className="text-xl font-bold leading-snug text-gray-900 font-montserrat">
+              <h2 id={titleId} className="text-xl font-bold leading-snug text-gray-900 font-montserrat dark:text-gray-100">
                 {title}
               </h2>
               {subtitle != null && subtitle !== '' && (
-                <p className="mt-1 text-sm text-gray-500">{subtitle}</p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>
               )}
             </div>
           </div>
@@ -113,7 +113,7 @@ const Modal: React.FC<ModalProps> = ({
             type="button"
             onClick={onClose}
             disabled={closeDisabled}
-            className="shrink-0 rounded-xl p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/35 disabled:opacity-40"
+            className="shrink-0 rounded-xl p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/35 disabled:opacity-40 dark:hover:bg-white/10 dark:hover:text-gray-100"
             aria-label="Cerrar"
           >
             <X size={22} strokeWidth={2} />
@@ -123,7 +123,7 @@ const Modal: React.FC<ModalProps> = ({
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4 sm:px-6">{children}</div>
 
         {footer != null && footer !== false && (
-          <footer className="flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-gray-100 px-5 py-4 sm:px-6">
+          <footer className="flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-gray-100 px-5 py-4 sm:px-6 dark:border-gray-800">
             {footer}
           </footer>
         )}

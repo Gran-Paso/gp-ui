@@ -27,7 +27,7 @@ const AppBar: React.FC<AppBarProps> = ({
   const [launcherOpen, setLauncherOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50 overflow-hidden dark:bg-gray-950">
       {/* Icon Rail */}
       <IconRail
         appIcon={appIcon}

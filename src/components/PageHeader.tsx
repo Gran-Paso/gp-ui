@@ -27,12 +27,12 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div>
-        <h1 className="text-2xl font-bold text-gray-800 font-montserrat flex items-center gap-2 leading-tight">
+        <h1 className="text-2xl font-bold text-gray-800 font-montserrat flex items-center gap-2 leading-tight dark:text-gray-100">
           {icon}
           {title}
         </h1>
         {sub && (
-          <p className="text-sm text-gray-400 mt-1">{sub}</p>
+          <p className="text-sm text-gray-400 mt-1 dark:text-gray-500">{sub}</p>
         )}
       </div>
       {trailing && (

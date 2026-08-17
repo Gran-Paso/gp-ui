@@ -1,6 +1,19 @@
 // Theme
 import './theme/index.css';
 
+export {
+  GP_THEME_COOKIE,
+  GP_THEME_STORAGE_KEY,
+  GP_THEME_CHANGE_EVENT,
+  GP_THEME_FOUC_SCRIPT,
+  readGpTheme,
+  resolvedGpTheme,
+  applyGpTheme,
+  bootGpTheme,
+  useGpTheme,
+} from './theme/gpTheme';
+export type { GpTheme, GpResolvedTheme } from './theme/gpTheme';
+
 export { default as GpWikiReferenceRow } from './components/crossApp/GpWikiReferenceRow';
 export { default as GpControlTaskReferenceRow } from './components/crossApp/GpControlTaskReferenceRow';
 export type { GpWikiReferenceRowProps } from './components/crossApp/GpWikiReferenceRow';

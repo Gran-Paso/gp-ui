@@ -103,6 +103,8 @@ export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
   'binnacle.manage_projects': false,
   'control.view_boards': false,
   'control.manage_boards': false,
+  'control.wiki.read': false,
+  'control.wiki.write': false,
   'assets.view': false,
   'assets.manage': false,
 };
@@ -182,6 +184,8 @@ export const PERM_LABELS: Record<string, string> = {
   'binnacle.manage_projects': 'Gestionar proyectos de bitácora',
   'control.view_boards': 'Ver tableros GP Control',
   'control.manage_boards': 'Gestionar tableros GP Control',
+  'control.wiki.read': 'Ver Wiki GP Control',
+  'control.wiki.write': 'Editar Wiki GP Control',
   'assets.view': 'Ver activos fijos',
   'assets.manage': 'Crear y gestionar activos fijos',
 };
@@ -339,6 +343,8 @@ export const ALL_PERMISSION_SECTIONS: PermissionSectionDef[] = [
       'binnacle.manage_projects',
       'control.view_boards',
       'control.manage_boards',
+      'control.wiki.read',
+      'control.wiki.write',
     ],
   },
   {

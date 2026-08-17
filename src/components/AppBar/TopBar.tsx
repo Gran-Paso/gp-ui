@@ -15,10 +15,10 @@ const TopBar: React.FC<TopBarProps> = ({
   );
 
   return (
-    <header className="flex items-center justify-between h-12 px-5 bg-white border-b border-gray-200 shrink-0">
+    <header className="flex items-center justify-between h-12 px-5 bg-white border-b border-gray-200 shrink-0 dark:bg-gray-950 dark:border-gray-800">
       {/* Left: app name */}
       <div className="flex items-center gap-3 min-w-0">
-        <h1 className="text-sm font-bold text-gray-900 font-montserrat truncate">
+        <h1 className="text-sm font-bold text-gray-900 font-montserrat truncate dark:text-gray-100">
           {appName}
         </h1>
       </div>
@@ -28,7 +28,7 @@ const TopBar: React.FC<TopBarProps> = ({
         {/* Business selector */}
         {selectedBiz && (
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-900 dark:border-gray-800">
               <Building2 size={13} className="text-gray-400 shrink-0" />
               {availableBusinesses.length > 1 ? (
                 <div className="relative">
@@ -37,7 +37,7 @@ const TopBar: React.FC<TopBarProps> = ({
                     onChange={(e) =>
                       onSelectBusiness(parseInt(e.target.value))
                     }
-                    className="appearance-none bg-transparent text-xs font-medium text-gray-700 pr-5 cursor-pointer focus:outline-none"
+                    className="appearance-none bg-transparent text-xs font-medium text-gray-700 pr-5 cursor-pointer focus:outline-none dark:text-gray-200 dark:bg-gray-900"
                   >
                     {availableBusinesses.map((b) => (
                       <option key={b.businessId} value={b.businessId}>
@@ -51,7 +51,7 @@ const TopBar: React.FC<TopBarProps> = ({
                   />
                 </div>
               ) : (
-                <span className="text-xs font-medium text-gray-700 truncate max-w-[160px]">
+                <span className="text-xs font-medium text-gray-700 truncate max-w-[160px] dark:text-gray-200">
                   {selectedBiz.businessName}
                 </span>
               )}
@@ -66,15 +66,15 @@ const TopBar: React.FC<TopBarProps> = ({
 
         {/* User info */}
         {user && (
-          <div className="flex items-center gap-2 pl-3 border-l border-gray-200">
+          <div className="flex items-center gap-2 pl-3 border-l border-gray-200 dark:border-gray-800">
             <div className="text-right hidden sm:block">
-              <p className="text-xs font-medium text-gray-700 leading-none">
+              <p className="text-xs font-medium text-gray-700 leading-none dark:text-gray-200">
                 {user.name} {user.lastName}
               </p>
               <p className="text-[10px] text-gray-400 mt-0.5">{user.role}</p>
             </div>
-            <div className="w-7 h-7 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
-              <span className="text-[10px] font-bold text-green-600 select-none">
+            <div className="w-7 h-7 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0 dark:bg-green-500/20">
+              <span className="text-[10px] font-bold text-green-600 select-none dark:text-green-400">
                 {user.name.charAt(0)}
                 {user.lastName.charAt(0)}
               </span>

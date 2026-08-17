@@ -36,17 +36,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
   if (density === 'compact') {
     return (
       <article
-        className={`flex flex-row items-stretch gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition-shadow hover:shadow-md ${className}`}
+        className={`flex flex-row items-stretch gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-gray-900 ${className}`}
       >
         {media != null && (
-          <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-20 sm:w-20">
+          <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-20 sm:w-20 dark:bg-gray-800">
             {media}
           </div>
         )}
         <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0 flex-1">
-              <h3 className="truncate text-sm font-semibold leading-tight text-gray-900">{title}</h3>
+              <h3 className="truncate text-sm font-semibold leading-tight text-gray-900 dark:text-gray-100">{title}</h3>
               {subtitle != null && subtitle !== '' && (
                 <p className="mt-0.5 truncate text-xs text-gray-500">{subtitle}</p>
               )}
@@ -57,7 +57,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
           {children != null && <div className="flex flex-1 flex-col gap-2">{children}</div>}
           {footer != null && footer !== false && (
-            <div className="mt-auto border-t border-gray-50 pt-2">{footer}</div>
+            <div className="mt-auto border-t border-gray-50 pt-2 dark:border-gray-800">{footer}</div>
           )}
         </div>
       </article>
@@ -66,11 +66,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   return (
     <article
-      className={`flex flex-col rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md ${className}`}
+      className={`flex flex-col rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-gray-900 ${className}`}
     >
-      <div className="flex items-start justify-between gap-3 border-b border-gray-50 px-4 pb-3 pt-4">
+      <div className="flex items-start justify-between gap-3 border-b border-gray-50 px-4 pb-3 pt-4 dark:border-gray-800">
         <div className="min-w-0 flex-1">
-          <h3 className="truncate font-semibold text-base leading-snug text-gray-900">{title}</h3>
+          <h3 className="truncate font-semibold text-base leading-snug text-gray-900 dark:text-gray-100">{title}</h3>
           {subtitle != null && subtitle !== '' && (
             <p className="mt-0.5 truncate text-sm text-gray-500">{subtitle}</p>
           )}
@@ -81,7 +81,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       </div>
 
       {media != null && (
-        <div className="relative mx-4 mb-1 mt-3 aspect-[4/3] overflow-hidden rounded-xl bg-gray-100">
+        <div className="relative mx-4 mb-1 mt-3 aspect-[4/3] overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800">
           {media}
         </div>
       )}
@@ -91,7 +91,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       )}
 
       {footer != null && footer !== false && (
-        <div className="border-t border-gray-50 px-4 py-3">{footer}</div>
+        <div className="border-t border-gray-50 px-4 py-3 dark:border-gray-800">{footer}</div>
       )}
     </article>
   );

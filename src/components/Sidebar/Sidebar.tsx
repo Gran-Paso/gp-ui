@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       }}
       animate={{ width: expanded ? 232 : 56 }}
       transition={sidebarTransition}
-      className="relative flex flex-col h-full bg-white shrink-0 border-r border-gray-100 overflow-hidden"
+      className="relative flex flex-col h-full bg-white shrink-0 border-r border-gray-100 overflow-hidden dark:bg-gray-950 dark:border-gray-800"
     >
       {/* ── Logo zone — unified launcher trigger ── */}
       <button
@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           canLaunch
             ? launcherOpen
               ? `${accent.activeBg}`
-              : `hover:bg-gray-50 active:bg-gray-100`
+              : `hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-white/5 dark:active:bg-white/10`
             : 'cursor-default'
         }`}
       >
@@ -85,11 +85,11 @@ const Sidebar: React.FC<SidebarProps> = ({
               transition={{ duration: 0.15 }}
               className="flex flex-col min-w-0 text-left"
             >
-              <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 leading-none">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 leading-none dark:text-gray-500">
                 Gran Paso
               </span>
               <span className={`text-[14px] font-semibold truncate leading-tight font-montserrat mt-0.5 ${
-                launcherOpen ? accent.navIconActive : 'text-gray-800'
+                launcherOpen ? accent.navIconActive : 'text-gray-800 dark:text-gray-100'
               }`}>
                 {appName}
               </span>
@@ -98,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         )}
       </button>
 
-      <div className="mx-3 h-px bg-gray-100 shrink-0" />
+      <div className="mx-3 h-px bg-gray-100 shrink-0 dark:bg-gray-800" />
 
       <SidebarNav items={navItems} expanded={expanded} hasPerm={hasPerm} accent={accent} />
 
