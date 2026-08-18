@@ -1,6 +1,6 @@
 {
   "name": "@gran-paso/ui",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Gran Paso ERP shared component library and design system",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -11,6 +11,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./glyph-picker": {
+      "types": "./dist/glyph-picker.d.ts",
+      "import": "./dist/glyph-picker.js",
+      "require": "./dist/glyph-picker.cjs"
     },
     "./theme/tailwind-preset": {
       "types": "./dist/theme/tailwind-preset.d.ts",

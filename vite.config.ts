@@ -18,6 +18,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
+        'glyph-picker': resolve(__dirname, 'src/glyph-picker.ts'),
         mobile: resolve(__dirname, 'src/mobile/index.ts'),
         'theme/tailwind-preset': resolve(__dirname, 'src/theme/tailwind-preset.ts'),
         'mobile/theme/mobile-preset': resolve(__dirname, 'src/mobile/theme/mobile-preset.ts'),
