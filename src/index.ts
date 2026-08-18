@@ -50,6 +50,12 @@ export { default as ListingCard } from './components/ListingCard';
 export { default as PageToolbar } from './components/PageToolbar';
 export { default as StockLevelDot } from './components/StockLevelDot';
 
+export { default as GlyphPicker } from './components/GlyphPicker/GlyphPicker';
+export { GlyphIcon } from './components/GlyphPicker/GlyphIcon';
+export { getLucideIcon, listLucideIcons } from './components/GlyphPicker/lucideIcons';
+export type { GlyphPickerProps } from './components/GlyphPicker/GlyphPicker';
+export type { GlyphKind, GlyphValue } from './components/GlyphPicker/GlyphIcon';
+
 // AppBar (hybrid layout)
 export { default as AppBar } from './components/AppBar/AppBar';
 export { default as IconRail } from './components/AppBar/IconRail';
