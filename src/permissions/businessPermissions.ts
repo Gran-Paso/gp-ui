@@ -425,12 +425,15 @@ const LEGACY_INVENTORY_KEYS = [
  *
  * #225 — Seed factory supply keys once from shared view_supplies/manage_supplies when absent,
  * so existing Factory access is preserved; afterwards chips stay independent.
+ * Only seed when gp-factory is actually contracted for the business.
  */
 export function migrateLegacyInventoryPermissions(
   permissions: Record<string, boolean>,
+  businessApps?: string[],
 ): Record<string, boolean> {
   const result: Record<string, boolean> = { ...permissions };
   const on = (key: string) => result[key] === true;
+  const hasFactory = businessApps?.includes('gp-factory') ?? true;
 
   if (on('view_inventory') || on('view_store_inventories')) {
     result.view_product_stock = true;
@@ -441,11 +444,13 @@ export function migrateLegacyInventoryPermissions(
   }
 
   // #225 — one-shot seed (only if key missing, never overwrite explicit false)
-  if (on('view_supplies') && !Object.prototype.hasOwnProperty.call(result, 'view_factory_supplies')) {
-    result.view_factory_supplies = true;
-  }
-  if (on('manage_supplies') && !Object.prototype.hasOwnProperty.call(result, 'manage_factory_supplies')) {
-    result.manage_factory_supplies = true;
+  if (hasFactory) {
+    if (on('view_supplies') && !Object.prototype.hasOwnProperty.call(result, 'view_factory_supplies')) {
+      result.view_factory_supplies = true;
+    }
+    if (on('manage_supplies') && !Object.prototype.hasOwnProperty.call(result, 'manage_factory_supplies')) {
+      result.manage_factory_supplies = true;
+    }
   }
 
   for (const legacy of LEGACY_INVENTORY_KEYS) {
@@ -458,7 +463,7 @@ export function stripPermissionsForBusiness(
   permissions: Record<string, boolean>,
   businessApps: string[],
 ): Record<string, boolean> {
-  const migrated = migrateLegacyInventoryPermissions(permissions);
+  const migrated = migrateLegacyInventoryPermissions(permissions, businessApps);
   const allowed = getAllowedPermissionKeysForBusiness(businessApps);
   const result: Record<string, boolean> = {};
   for (const [key, value] of Object.entries(migrated)) {
@@ -476,7 +481,7 @@ export function findDisallowedPermissionKeys(
   permissions: Record<string, boolean>,
   businessApps: string[],
 ): string[] {
-  const migrated = migrateLegacyInventoryPermissions(permissions);
+  const migrated = migrateLegacyInventoryPermissions(permissions, businessApps);
   const allowed = getAllowedPermissionKeysForBusiness(businessApps);
   return Object.keys(migrated).filter(
     (key) =>
