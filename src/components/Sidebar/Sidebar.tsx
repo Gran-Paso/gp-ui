@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       }}
       animate={{ width: expanded ? 232 : 56 }}
       transition={sidebarTransition}
-      className="relative flex flex-col h-full bg-white shrink-0 border-r border-gray-100 overflow-hidden dark:bg-gray-950 dark:border-gray-800"
+      className="relative z-30 flex flex-col h-full bg-white shrink-0 border-r border-gray-100 overflow-visible dark:bg-gray-950 dark:border-gray-800"
     >
       {/* ── Logo zone — unified launcher trigger ── */}
       <button

@@ -9,9 +9,6 @@ const gpPreset: Partial<Config> = {
       },
       screens: {
         xs: '475px',
-        mobile: { max: '767px' },
-        tablet: { min: '768px', max: '1023px' },
-        desktop: { min: '1024px' },
       },
       colors: {
         primary: {
