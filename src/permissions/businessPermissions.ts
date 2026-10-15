@@ -27,6 +27,8 @@ export interface PermissionSectionDef {
   headerBg: string;
   badgeClass: string;
   keys: readonly string[];
+  /** Aclaración fija, no es un permiso que se pueda marcar. */
+  note?: string;
 }
 
 export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
@@ -105,6 +107,32 @@ export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
   'control.manage_boards': false,
   'control.wiki.read': false,
   'control.wiki.write': false,
+  'control.metas.view': false,
+  'control.metas.manage': false,
+  'control.hitos.view': false,
+  'control.hitos.manage': false,
+  'control.backlog.view': false,
+  'control.backlog.manage': false,
+  'control.planning.view': false,
+  'control.planning.manage': false,
+  'control.daily.view': false,
+  'control.daily.manage': false,
+  'control.friccion.view': false,
+  'control.friccion.manage': false,
+  'control.retros.view': false,
+  'control.retros.manage': false,
+  'control.inbox.view': false,
+  'control.inbox.manage': false,
+  'control.crm.view': false,
+  'control.crm.manage': false,
+  'control.notas.view': false,
+  'control.notas.manage': false,
+  'control.reuniones.view': false,
+  'control.reuniones.manage': false,
+  'control.ciclo.view': false,
+  'control.ciclo.manage': false,
+  'control.negocio.view': false,
+  'control.negocio.manage': false,
   'assets.view': false,
   'assets.manage': false,
 };
@@ -186,6 +214,32 @@ export const PERM_LABELS: Record<string, string> = {
   'control.manage_boards': 'Gestionar tableros GP Control',
   'control.wiki.read': 'Ver Wiki GP Control',
   'control.wiki.write': 'Editar Wiki GP Control',
+  'control.metas.view': 'Ver Metas',
+  'control.metas.manage': 'Gestionar Metas',
+  'control.hitos.view': 'Ver Hitos',
+  'control.hitos.manage': 'Gestionar Hitos',
+  'control.backlog.view': 'Ver Backlog',
+  'control.backlog.manage': 'Gestionar Backlog',
+  'control.planning.view': 'Ver Planning',
+  'control.planning.manage': 'Gestionar Planning',
+  'control.daily.view': 'Ver Daily',
+  'control.daily.manage': 'Gestionar Daily',
+  'control.friccion.view': 'Ver Fricción',
+  'control.friccion.manage': 'Gestionar Fricción',
+  'control.retros.view': 'Ver Retrospectivas',
+  'control.retros.manage': 'Gestionar Retrospectivas',
+  'control.inbox.view': 'Ver Inbox',
+  'control.inbox.manage': 'Gestionar Inbox',
+  'control.crm.view': 'Ver CRM',
+  'control.crm.manage': 'Gestionar CRM',
+  'control.notas.view': 'Ver Nota rápida',
+  'control.notas.manage': 'Gestionar Nota rápida',
+  'control.reuniones.view': 'Ver Reuniones',
+  'control.reuniones.manage': 'Gestionar Reuniones',
+  'control.ciclo.view': 'Ver Ciclo',
+  'control.ciclo.manage': 'Gestionar Ciclo',
+  'control.negocio.view': 'Ver Negocio y tiendas',
+  'control.negocio.manage': 'Gestionar Negocio y tiendas',
   'assets.view': 'Ver activos fijos',
   'assets.manage': 'Crear y gestionar activos fijos',
 };
@@ -345,6 +399,32 @@ export const ALL_PERMISSION_SECTIONS: PermissionSectionDef[] = [
       'control.manage_boards',
       'control.wiki.read',
       'control.wiki.write',
+      'control.metas.view',
+      'control.metas.manage',
+      'control.hitos.view',
+      'control.hitos.manage',
+      'control.backlog.view',
+      'control.backlog.manage',
+      'control.planning.view',
+      'control.planning.manage',
+      'control.daily.view',
+      'control.daily.manage',
+      'control.friccion.view',
+      'control.friccion.manage',
+      'control.retros.view',
+      'control.retros.manage',
+      'control.inbox.view',
+      'control.inbox.manage',
+      'control.crm.view',
+      'control.crm.manage',
+      'control.notas.view',
+      'control.notas.manage',
+      'control.reuniones.view',
+      'control.reuniones.manage',
+      'control.ciclo.view',
+      'control.ciclo.manage',
+      'control.negocio.view',
+      'control.negocio.manage',
     ],
   },
   {
@@ -456,8 +536,38 @@ export function migrateLegacyInventoryPermissions(
   for (const legacy of LEGACY_INVENTORY_KEYS) {
     delete result[legacy];
   }
+
+  // Apartados que ya veía cualquier rol de Control. Backlog y CRM quedan opt-in.
+  for (const key of SEEDED_CONTROL_SECTION_KEYS) {
+    if (!Object.prototype.hasOwnProperty.call(result, key)) result[key] = true;
+  }
   return result;
 }
+
+/** View+manage de apartados que ya estaban abiertos. Backlog y CRM no se siembran: se marcan en el rol. */
+const SEEDED_CONTROL_SECTION_KEYS = [
+  'control.metas.view',
+  'control.metas.manage',
+  'control.hitos.view',
+  'control.hitos.manage',
+  'control.planning.view',
+  'control.planning.manage',
+  'control.daily.view',
+  'control.daily.manage',
+  'control.friccion.view',
+  'control.friccion.manage',
+  'control.retros.view',
+  'control.retros.manage',
+  'control.inbox.view',
+  'control.inbox.manage',
+  'control.notas.view',
+  'control.notas.manage',
+  'control.reuniones.view',
+  'control.reuniones.manage',
+  'control.ciclo.view',
+  'control.ciclo.manage',
+  'control.negocio.view',
+] as const;
 
 export function stripPermissionsForBusiness(
   permissions: Record<string, boolean>,
