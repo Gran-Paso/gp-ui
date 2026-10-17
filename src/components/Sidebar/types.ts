@@ -33,10 +33,15 @@ export interface NavSection {
 export type NavItem = NavLeaf | NavGroup | NavSection;
 
 export interface User {
+  id?: number;
   name: string;
   lastName: string;
   email: string;
   role: string;
+  /** Nombre para mostrar. Si falta, se usa nombre y apellido. */
+  alias?: string | null;
+  /** Ruta o URL de la foto. Si falta, iniciales con color estable. */
+  avatarUrl?: string | null;
   /** Negocio activo (multi-tenant). */
   businessName?: string;
 }
@@ -51,6 +56,12 @@ export interface SidebarProps {
   appIcon: React.ElementType;
   /** Override logotipo — por defecto se usa el isotipo PNG incluido en gp-ui */
   logoSrc?: string;
+  /** Logo del negocio. Si viene, reemplaza logoSrc y el isotipo. */
+  businessLogoSrc?: string | null;
+  /** #RRGGBB. Ítem activo y chip. Si falta, se usa accentColor. */
+  brandPrimary?: string | null;
+  /** #RRGGBB. Iconos inactivos y texto secundario del shell. */
+  brandSecondary?: string | null;
   appId?: string;
   accentColor?: AccentColor;
   navItems: NavItem[];
@@ -80,6 +91,8 @@ export interface NavbarProps {
   appName: string;
   appIcon: React.ElementType;
   accentColor?: AccentColor;
+  brandPrimary?: string | null;
+  brandSecondary?: string | null;
   user: User | null;
   availableBusinesses: Business[];
   selectedBusinessId: number | null;

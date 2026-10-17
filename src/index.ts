@@ -28,6 +28,15 @@ export {
 // Components
 export { default as Layout } from './components/Layout';
 export { default as Sidebar } from './components/Sidebar/Sidebar';
+export { default as UserAvatar } from './components/UserAvatar';
+export {
+  userInitials,
+  userAvatarColor,
+  sidebarDisplayName,
+  resolveGpMediaUrl,
+  gpAuthProfileUrl,
+  sidebarProfileFields,
+} from './components/UserAvatar';
 export { default as Navbar } from './components/Navbar';
 export { default as GpLogo } from './assets/GpLogo';
 export { default as Button } from './components/Button';

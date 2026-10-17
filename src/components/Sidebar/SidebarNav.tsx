@@ -10,6 +10,25 @@ interface SidebarNavProps {
   expanded: boolean;
   hasPerm: (perm: string | null) => boolean;
   accent: AccentClasses;
+  brandPrimary?: boolean;
+  brandSecondary?: boolean;
+}
+
+function itemState(isActive: boolean, accent: AccentClasses, brandPrimary?: boolean) {
+  if (!isActive) {
+    return `${accent.hoverBg} text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`;
+  }
+  return brandPrimary
+    ? 'gp-brand-active font-semibold'
+    : `${accent.activeBg} ${accent.activeText} font-semibold`;
+}
+
+function iconState(isActive: boolean, accent: AccentClasses, brandPrimary?: boolean, brandSecondary?: boolean) {
+  if (isActive && brandPrimary) return 'gp-brand-on';
+  if (isActive) return accent.navIconActive;
+  if (brandSecondary) return 'gp-brand-icon-idle';
+  if (brandPrimary) return 'gp-brand-icon';
+  return accent.navIcon;
 }
 
 const transition150 = { duration: 0.15 };
@@ -18,8 +37,10 @@ const LeafItem: React.FC<{
   item: NavLeaf;
   expanded: boolean;
   accent: AccentClasses;
+  brandPrimary?: boolean;
+  brandSecondary?: boolean;
   indent?: boolean;
-}> = ({ item, expanded, accent, indent }) => {
+}> = ({ item, expanded, accent, brandPrimary, brandSecondary, indent }) => {
   const Icon = item.icon;
 
   const base = `relative flex items-center gap-3 rounded-xl transition-all duration-150 ${
@@ -31,9 +52,9 @@ const LeafItem: React.FC<{
     return (
       <a
         href={item.href}
-        className={`${base} ${sizing} ${accent.hoverBg} text-gray-500 hover:text-gray-700 relative dark:text-gray-400 dark:hover:text-gray-200`}
+        className={`${base} ${sizing} ${itemState(false, accent, brandPrimary)} relative`}
       >
-        <Icon size={indent ? 15 : 18} className={`shrink-0 ${accent.navIcon}`} />
+        <Icon size={indent ? 15 : 18} className={`shrink-0 ${iconState(false, accent, brandPrimary, brandSecondary)}`} />
         {expanded && (
           <>
             <span className="flex-1 min-w-0 text-[13px] font-medium truncate">{item.label}</span>
@@ -61,18 +82,14 @@ const LeafItem: React.FC<{
       to={item.to}
       end={item.to === '/dashboard'}
       className={({ isActive }) =>
-        `${base} ${sizing} ${
-          isActive
-            ? `${accent.activeBg} ${accent.activeText} font-semibold`
-            : `${accent.hoverBg} text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`
-        }`
+        `${base} ${sizing} ${itemState(isActive, accent, brandPrimary)}`
       }
     >
       {({ isActive }) => (
         <>
           <Icon
             size={indent ? 15 : 18}
-            className={`shrink-0 ${isActive ? accent.navIconActive : accent.navIcon}`}
+            className={`shrink-0 ${iconState(isActive, accent, brandPrimary, brandSecondary)}`}
           />
           {expanded && (
             <span className="text-[13px] truncate">{item.label}</span>
@@ -88,7 +105,9 @@ const GroupItem: React.FC<{
   expanded: boolean;
   hasPerm: (perm: string | null) => boolean;
   accent: AccentClasses;
-}> = ({ item, expanded, hasPerm, accent }) => {
+  brandPrimary?: boolean;
+  brandSecondary?: boolean;
+}> = ({ item, expanded, hasPerm, accent, brandPrimary, brandSecondary }) => {
   const location = useLocation();
   const visibleChildren = item.children.filter((c) => hasPerm(c.perm));
   if (visibleChildren.length === 0) return null;
@@ -105,15 +124,11 @@ const GroupItem: React.FC<{
         onClick={() => setOpen((o) => !o)}
         className={`relative flex items-center gap-3 rounded-xl transition-all duration-150 py-2 w-full ${
           expanded ? 'px-3' : 'px-0 justify-center'
-        } ${
-          anyActive
-            ? `${accent.activeBg} ${accent.activeText} font-semibold`
-            : `${accent.hoverBg} text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`
-        }`}
+        } ${itemState(anyActive, accent, brandPrimary)}`}
       >
         <Icon
           size={18}
-          className={`shrink-0 ${anyActive ? accent.navIconActive : accent.navIcon}`}
+          className={`shrink-0 ${iconState(anyActive, accent, brandPrimary, brandSecondary)}`}
         />
         {expanded && (
           <>
@@ -122,7 +137,9 @@ const GroupItem: React.FC<{
             </span>
             <ChevronDown
               size={13}
-              className={`shrink-0 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`}
+              className={`shrink-0 transition-transform ${open ? 'rotate-180' : ''} ${
+                anyActive && brandPrimary ? 'text-current opacity-80' : 'text-gray-400'
+              }`}
             />
           </>
         )}
@@ -138,7 +155,15 @@ const GroupItem: React.FC<{
             className="overflow-hidden ml-3 mt-0.5 space-y-0.5 border-l border-gray-100 pl-2 dark:border-gray-800"
           >
             {visibleChildren.map((child) => (
-              <LeafItem key={child.to} item={child} expanded={expanded} accent={accent} indent />
+              <LeafItem
+                key={child.to}
+                item={child}
+                expanded={expanded}
+                accent={accent}
+                brandPrimary={brandPrimary}
+                brandSecondary={brandSecondary}
+                indent
+              />
             ))}
           </motion.div>
         )}
@@ -147,15 +172,41 @@ const GroupItem: React.FC<{
   );
 };
 
-const SidebarNav: React.FC<SidebarNavProps> = ({ items, expanded, hasPerm, accent }) => {
+const SidebarNav: React.FC<SidebarNavProps> = ({
+  items,
+  expanded,
+  hasPerm,
+  accent,
+  brandPrimary,
+  brandSecondary,
+}) => {
   const renderItem = (item: NavItem, idx: number) => {
     if (item.kind === 'section') return renderSection(item, idx);
     if (item.kind === 'group') {
       if (!hasPerm(item.perm)) return null;
-      return <GroupItem key={item.id} item={item} expanded={expanded} hasPerm={hasPerm} accent={accent} />;
+      return (
+        <GroupItem
+          key={item.id}
+          item={item}
+          expanded={expanded}
+          hasPerm={hasPerm}
+          accent={accent}
+          brandPrimary={brandPrimary}
+          brandSecondary={brandSecondary}
+        />
+      );
     }
     if (!hasPerm(item.perm)) return null;
-    return <LeafItem key={item.to} item={item} expanded={expanded} accent={accent} />;
+    return (
+      <LeafItem
+        key={item.to}
+        item={item}
+        expanded={expanded}
+        accent={accent}
+        brandPrimary={brandPrimary}
+        brandSecondary={brandSecondary}
+      />
+    );
   };
 
   const renderSection = (s: NavSection, idx: number) => {
@@ -172,9 +223,24 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ items, expanded, hasPerm, accen
         )}
         {sectionItems.map((item) =>
           item.kind === 'group' ? (
-            <GroupItem key={item.id} item={item} expanded={expanded} hasPerm={hasPerm} accent={accent} />
+            <GroupItem
+              key={item.id}
+              item={item}
+              expanded={expanded}
+              hasPerm={hasPerm}
+              accent={accent}
+              brandPrimary={brandPrimary}
+              brandSecondary={brandSecondary}
+            />
           ) : (
-            <LeafItem key={item.to} item={item} expanded={expanded} accent={accent} />
+            <LeafItem
+              key={item.to}
+              item={item}
+              expanded={expanded}
+              accent={accent}
+              brandPrimary={brandPrimary}
+              brandSecondary={brandSecondary}
+            />
           ),
         )}
       </React.Fragment>

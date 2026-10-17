@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { SidebarProps } from './types';
 import { getAccentClasses } from './accentColors';
+import { brandCssVars, normalizeBrandHex } from './brand';
 import GpLogo from '../../assets/GpLogo';
 import SidebarNav from './SidebarNav';
 import SidebarFooter from './SidebarFooter';
@@ -13,6 +14,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   appName,
   appIcon: _AppIcon,
   logoSrc,
+  businessLogoSrc,
+  brandPrimary,
+  brandSecondary,
   appId,
   accentColor,
   navItems,
@@ -32,6 +36,10 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const expanded = hovered || launcherOpen;
   const accent = getAccentClasses(accentColor);
+  const primaryOn = !!normalizeBrandHex(brandPrimary);
+  const secondaryOn = !!normalizeBrandHex(brandSecondary);
+  const brandStyle = brandCssVars(brandPrimary, brandSecondary);
+  const logo = businessLogoSrc || logoSrc;
 
   const hasPerm = (perm: string | null) => {
     if (perm === null) return true;
@@ -50,6 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       }}
       animate={{ width: expanded ? 232 : 56 }}
       transition={sidebarTransition}
+      style={brandStyle}
       className="relative z-30 flex flex-col h-full bg-white shrink-0 border-r border-gray-100 overflow-visible dark:bg-gray-950 dark:border-gray-800"
     >
       {/* ── Logo zone — unified launcher trigger ── */}
@@ -61,15 +70,17 @@ const Sidebar: React.FC<SidebarProps> = ({
         } ${
           canLaunch
             ? launcherOpen
-              ? `${accent.activeBg}`
+              ? primaryOn
+                ? 'gp-brand-active'
+                : `${accent.activeBg}`
               : `hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-white/5 dark:active:bg-white/10`
             : 'cursor-default'
         }`}
       >
         {/* Logo: PNG por defecto (gp-ui) o URL opcional por app */}
         <div className="flex shrink-0 items-center justify-center">
-          {logoSrc ? (
-            <img src={logoSrc} alt="Gran Paso" className="h-7 w-7 object-contain" />
+          {logo ? (
+            <img src={logo} alt={businessLogoSrc ? 'Logo del negocio' : 'Gran Paso'} className="h-7 w-7 object-contain" />
           ) : (
             <GpLogo size={28} className="rounded-md" />
           )}
@@ -85,11 +96,21 @@ const Sidebar: React.FC<SidebarProps> = ({
               transition={{ duration: 0.15 }}
               className="flex flex-col min-w-0 text-left"
             >
-              <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 leading-none dark:text-gray-500">
+              <span className={`text-[10px] font-bold uppercase tracking-widest leading-none ${
+                launcherOpen && primaryOn
+                  ? 'gp-brand-on opacity-80'
+                  : secondaryOn
+                    ? 'gp-brand-secondary-text'
+                    : 'text-gray-400 dark:text-gray-500'
+              }`}>
                 Gran Paso
               </span>
               <span className={`text-[14px] font-semibold truncate leading-tight font-montserrat mt-0.5 ${
-                launcherOpen ? accent.navIconActive : 'text-gray-800 dark:text-gray-100'
+                launcherOpen && primaryOn
+                  ? 'gp-brand-on'
+                  : launcherOpen
+                    ? accent.navIconActive
+                    : 'text-gray-800 dark:text-gray-100'
               }`}>
                 {appName}
               </span>
@@ -100,7 +121,14 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       <div className="mx-3 h-px bg-gray-100 shrink-0 dark:bg-gray-800" />
 
-      <SidebarNav items={navItems} expanded={expanded} hasPerm={hasPerm} accent={accent} />
+      <SidebarNav
+        items={navItems}
+        expanded={expanded}
+        hasPerm={hasPerm}
+        accent={accent}
+        brandPrimary={primaryOn}
+        brandSecondary={secondaryOn}
+      />
 
       <SidebarFooter
         expanded={expanded}
@@ -109,6 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         onUserMenuToggle={() => setUserMenuOpen((o) => !o)}
         onLogout={onLogout}
         accent={accent}
+        brandPrimary={primaryOn}
         showSettings={showSettings}
       />
 

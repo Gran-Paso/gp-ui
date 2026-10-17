@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Building2, Store, Check } from 'lucide-react';
 import type { NavbarProps } from './Sidebar/types';
 import { getAccentClasses } from './Sidebar/accentColors';
+import { brandCssVars, normalizeBrandHex } from './Sidebar/brand';
+import UserAvatar, { sidebarDisplayName } from './UserAvatar';
 
 /**
  * Top navigation bar — same bg as Sidebar, forming the horizontal arm of the L.
@@ -9,6 +11,8 @@ import { getAccentClasses } from './Sidebar/accentColors';
  */
 const Navbar: React.FC<NavbarProps> = ({
   accentColor,
+  brandPrimary,
+  brandSecondary,
   user,
   availableBusinesses,
   selectedBusinessId,
@@ -17,6 +21,9 @@ const Navbar: React.FC<NavbarProps> = ({
   subscriptionBadge,
 }) => {
   const accent = getAccentClasses(accentColor);
+  const primaryOn = !!normalizeBrandHex(brandPrimary);
+  const secondaryOn = !!normalizeBrandHex(brandSecondary);
+  const brandStyle = brandCssVars(brandPrimary, brandSecondary);
   const [bizOpen, setBizOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
 
@@ -35,11 +42,14 @@ const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   return (
-    <header className="flex items-center justify-between h-14 px-5 bg-white border-b border-gray-100 shrink-0 dark:bg-gray-950 dark:border-gray-800">
+    <header
+      style={brandStyle}
+      className="flex items-center justify-between h-14 px-5 bg-white border-b border-gray-100 shrink-0 dark:bg-gray-950 dark:border-gray-800"
+    >
       {!hideBusinessContext ? (
         <div className="flex min-w-0 items-center gap-2">
           <Store size={14} className="shrink-0 text-gray-300 dark:text-gray-600" />
-          <span className="truncate text-[13px] font-medium text-gray-400 dark:text-gray-500">
+          <span className={`truncate text-[13px] font-medium ${secondaryOn ? 'gp-brand-secondary-text' : 'text-gray-400 dark:text-gray-500'}`}>
             {selectedBiz?.businessName ?? '—'}
           </span>
         </div>
@@ -56,7 +66,9 @@ const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setBizOpen((o) => !o)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all duration-150 text-[13px] font-medium ${
                 bizOpen
-                  ? `${accent.navbarChip} ${accent.navbarChipText} border-transparent`
+                  ? primaryOn
+                    ? 'gp-brand-navbar-open'
+                    : `${accent.navbarChip} ${accent.navbarChipText} border-transparent`
                   : 'bg-gray-50 text-gray-600 border-gray-100 hover:bg-gray-100 hover:border-gray-200 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-800 dark:hover:bg-gray-800 dark:hover:border-gray-700'
               }`}
             >
@@ -83,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     }}
                     className={`flex items-center justify-between w-full px-3 py-2.5 text-[13px] transition-colors ${
                       biz.businessId === selectedBusinessId
-                        ? `${accent.navbarChipText} font-semibold`
+                        ? `${primaryOn ? 'gp-brand-icon' : accent.navbarChipText} font-semibold`
                         : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-white/5'
                     }`}
                   >
@@ -111,18 +123,16 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2.5">
             <div className="text-right hidden sm:block">
               <p className="text-[13px] font-medium text-gray-700 leading-none dark:text-gray-200">
-                {user.name} {user.lastName}
+                {sidebarDisplayName(user)}
               </p>
               <p className="text-[11px] text-gray-400 mt-0.5 leading-none dark:text-gray-500">{user.role}</p>
             </div>
-            <div
-              className={`w-8 h-8 rounded-lg ${accent.iconChip} flex items-center justify-center shrink-0`}
-            >
-              <span className="text-[10px] font-bold text-white select-none">
-                {user.name.charAt(0)}
-                {user.lastName.charAt(0)}
-              </span>
-            </div>
+            <UserAvatar
+              name={user.name}
+              lastName={user.lastName}
+              userId={user.id}
+              avatarUrl={user.avatarUrl}
+            />
           </div>
         )}
       </div>

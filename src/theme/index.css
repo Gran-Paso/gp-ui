@@ -12,3 +12,35 @@
     color-scheme: dark;
   }
 }
+
+.gp-brand-active {
+  background-color: var(--gp-brand-primary);
+  color: var(--gp-brand-on-primary);
+}
+
+.gp-brand-on {
+  color: var(--gp-brand-on-primary);
+}
+
+.gp-brand-icon {
+  color: var(--gp-brand-primary);
+}
+
+.gp-brand-icon-idle {
+  color: var(--gp-brand-secondary);
+}
+
+.gp-brand-chip {
+  background-color: var(--gp-brand-primary);
+  color: var(--gp-brand-on-primary);
+}
+
+.gp-brand-navbar-open {
+  background-color: var(--gp-brand-primary);
+  color: var(--gp-brand-on-primary);
+  border-color: transparent;
+}
+
+.gp-brand-secondary-text {
+  color: var(--gp-brand-secondary);
+}

@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, Monitor, Moon, Settings, Sun } from 'lucide-react';
+import { LogOut, Monitor, Moon, Settings, Sun, UserRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { User } from './types';
+import UserAvatar, { gpAuthProfileUrl, sidebarDisplayName } from '../UserAvatar';
 import type { AccentClasses } from './accentColors';
 import { useGpTheme, type GpTheme } from '../../theme/gpTheme';
 
@@ -13,6 +14,7 @@ interface SidebarFooterProps {
   onUserMenuToggle: () => void;
   onLogout: () => void;
   accent: AccentClasses;
+  brandPrimary?: boolean;
   showSettings?: boolean;
 }
 
@@ -29,6 +31,7 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({
   onUserMenuToggle,
   onLogout,
   accent,
+  brandPrimary,
   showSettings,
 }) => {
   const { theme, setTheme } = useGpTheme();
@@ -46,20 +49,22 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({
             : 'w-10 h-10 justify-center hover:bg-gray-100 dark:hover:bg-white/10'
         }`}
       >
-        <div className={`w-8 h-8 rounded-lg ${accent.iconChip} flex items-center justify-center shrink-0`}>
-          {user ? (
-            <span className="text-[10px] font-bold text-white select-none">
-              {user.name.charAt(0)}
-              {user.lastName.charAt(0)}
-            </span>
-          ) : (
-            <span className="w-3.5 h-3.5 rounded-full bg-white/50" />
-          )}
-        </div>
+        {user ? (
+          <UserAvatar
+            name={user.name}
+            lastName={user.lastName}
+            userId={user.id}
+            avatarUrl={user.avatarUrl}
+          />
+        ) : (
+          <div className={`w-8 h-8 rounded-lg ${brandPrimary ? 'gp-brand-chip' : accent.iconChip} flex items-center justify-center shrink-0`}>
+            <span className={`w-3.5 h-3.5 rounded-full ${brandPrimary ? 'bg-current opacity-60' : 'bg-white/50'}`} />
+          </div>
+        )}
         {expanded && user && (
           <div className="flex-1 min-w-0 text-left">
             <p className="text-[13px] font-medium text-gray-700 truncate dark:text-gray-200">
-              {user.name} {user.lastName}
+              {sidebarDisplayName(user)}
             </p>
             {user.businessName && (
               <p className="text-[10px] text-gray-400 truncate dark:text-gray-500">{user.businessName}</p>
@@ -110,6 +115,13 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({
                 })}
               </div>
             </div>
+            <a
+              href={gpAuthProfileUrl()}
+              className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-[13px] text-gray-500 hover:bg-gray-100 transition-colors dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-200"
+            >
+              <UserRound size={14} />
+              Mi perfil
+            </a>
             {showSettings && (
               <Link
                 to="/settings"
