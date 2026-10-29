@@ -115,6 +115,7 @@ export const DEFAULT_PERMISSIONS: Record<string, boolean> = {
   'control.backlog.manage': false,
   'control.planning.view': false,
   'control.planning.manage': false,
+  'control.sprint.manage': false,
   'control.daily.view': false,
   'control.daily.manage': false,
   'control.friccion.view': false,
@@ -222,6 +223,7 @@ export const PERM_LABELS: Record<string, string> = {
   'control.backlog.manage': 'Gestionar Backlog',
   'control.planning.view': 'Ver Planning',
   'control.planning.manage': 'Gestionar Planning',
+  'control.sprint.manage': 'Gestionar sprint',
   'control.daily.view': 'Ver Daily',
   'control.daily.manage': 'Gestionar Daily',
   'control.friccion.view': 'Ver Fricción',
@@ -407,6 +409,7 @@ export const ALL_PERMISSION_SECTIONS: PermissionSectionDef[] = [
       'control.backlog.manage',
       'control.planning.view',
       'control.planning.manage',
+      'control.sprint.manage',
       'control.daily.view',
       'control.daily.manage',
       'control.friccion.view',
@@ -544,7 +547,7 @@ export function migrateLegacyInventoryPermissions(
   return result;
 }
 
-/** View+manage de apartados que ya estaban abiertos. Backlog y CRM no se siembran: se marcan en el rol. */
+/** View+manage de apartados que ya estaban abiertos. Backlog, CRM y Gestionar sprint no se siembran: se marcan en el rol. */
 const SEEDED_CONTROL_SECTION_KEYS = [
   'control.metas.view',
   'control.metas.manage',
