@@ -23,11 +23,19 @@
 }
 
 .gp-brand-icon {
-  color: var(--gp-brand-primary);
+  color: var(--gp-brand-primary-on-light, var(--gp-brand-primary));
+}
+
+html.dark .gp-brand-icon {
+  color: var(--gp-brand-primary-on-dark, var(--gp-brand-primary));
 }
 
 .gp-brand-icon-idle {
-  color: var(--gp-brand-secondary);
+  color: var(--gp-brand-secondary-on-light, var(--gp-brand-secondary));
+}
+
+html.dark .gp-brand-icon-idle {
+  color: var(--gp-brand-secondary-on-dark, var(--gp-brand-secondary));
 }
 
 .gp-brand-chip {
@@ -42,5 +50,9 @@
 }
 
 .gp-brand-secondary-text {
-  color: var(--gp-brand-secondary);
+  color: var(--gp-brand-secondary-on-light, var(--gp-brand-secondary));
+}
+
+html.dark .gp-brand-secondary-text {
+  color: var(--gp-brand-secondary-on-dark, var(--gp-brand-secondary));
 }

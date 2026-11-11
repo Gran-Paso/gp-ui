@@ -33,6 +33,11 @@ function iconState(isActive: boolean, accent: AccentClasses, brandPrimary?: bool
 
 const transition150 = { duration: 0.15 };
 
+function itemBox(expanded: boolean, indent = false): string {
+  if (!expanded) return 'h-9 w-9 shrink-0 justify-center rounded-full';
+  return `w-full gap-3 rounded-xl px-3 ${indent ? 'py-1.5' : 'py-2'}`;
+}
+
 const LeafItem: React.FC<{
   item: NavLeaf;
   expanded: boolean;
@@ -42,17 +47,13 @@ const LeafItem: React.FC<{
   indent?: boolean;
 }> = ({ item, expanded, accent, brandPrimary, brandSecondary, indent }) => {
   const Icon = item.icon;
-
-  const base = `relative flex items-center gap-3 rounded-xl transition-all duration-150 ${
-    indent ? 'py-1.5' : 'py-2'
-  }`;
-  const sizing = expanded ? 'px-3 w-full' : 'px-0 w-10 justify-center';
+  const box = `relative flex items-center transition-all duration-150 ${itemBox(expanded, indent)}`;
 
   if (item.href) {
     return (
       <a
         href={item.href}
-        className={`${base} ${sizing} ${itemState(false, accent, brandPrimary)} relative`}
+        className={`${box} ${itemState(false, accent, brandPrimary)}`}
       >
         <Icon size={indent ? 15 : 18} className={`shrink-0 ${iconState(false, accent, brandPrimary, brandSecondary)}`} />
         {expanded && (
@@ -82,7 +83,7 @@ const LeafItem: React.FC<{
       to={item.to}
       end={item.to === '/dashboard'}
       className={({ isActive }) =>
-        `${base} ${sizing} ${itemState(isActive, accent, brandPrimary)}`
+        `${box} ${itemState(isActive, accent, brandPrimary)}`
       }
     >
       {({ isActive }) => (
@@ -119,12 +120,10 @@ const GroupItem: React.FC<{
   const Icon = item.icon;
 
   return (
-    <div>
+    <div className={expanded ? 'w-full' : 'w-9'}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`relative flex items-center gap-3 rounded-xl transition-all duration-150 py-2 w-full ${
-          expanded ? 'px-3' : 'px-0 justify-center'
-        } ${itemState(anyActive, accent, brandPrimary)}`}
+        className={`relative flex items-center transition-all duration-150 ${itemBox(expanded)} ${itemState(anyActive, accent, brandPrimary)}`}
       >
         <Icon
           size={18}
@@ -248,7 +247,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
   };
 
   return (
-    <nav className={`flex-1 flex flex-col gap-0.5 overflow-y-auto py-1.5 ${expanded ? 'px-2' : 'items-center px-2'}`}>
+    <nav className={`flex-1 flex flex-col overflow-y-auto py-1.5 ${expanded ? 'gap-0.5 px-2' : 'items-center gap-1.5 px-2'}`}>
       {items.map(renderItem)}
     </nav>
   );

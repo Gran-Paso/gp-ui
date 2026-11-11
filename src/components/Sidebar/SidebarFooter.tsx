@@ -43,10 +43,10 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({
     <div className={`relative ${expanded ? 'px-2' : 'flex justify-center'}`}>
       <button
         onClick={onUserMenuToggle}
-        className={`flex items-center gap-3 rounded-xl transition-all duration-150 ${
+        className={`flex items-center transition-all duration-150 ${
           expanded
-            ? 'w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-white/5'
-            : 'w-10 h-10 justify-center hover:bg-gray-100 dark:hover:bg-white/10'
+            ? 'w-full gap-3 rounded-xl px-3 py-2 hover:bg-gray-50 dark:hover:bg-white/5'
+            : 'h-10 w-10 justify-center rounded-full hover:bg-gray-100 dark:hover:bg-white/10'
         }`}
       >
         {user ? (
